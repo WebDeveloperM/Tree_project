@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9092567b-ffd2-4b64-b411-ae7dc5403be2" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/backend/apps/finance/migrations/__init__.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/apps/main/migrations/__init__.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/backend/apps/users/migrations/__init__.py" afterDir="false" />
@@ -826,6 +830,22 @@
       <change beforePath="$PROJECT_DIR$/users44/tests.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/users44/urls.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/users44/views.py" beforeDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/frontend/components/DiscoverItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Loader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Paginator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/screens/Authentication.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/screens/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/screens/Navigation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/slides.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/assets/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+>>>>>>> d2b46d9974757852220c4773ab8e4588bc1cb134
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -856,16 +876,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/backend/apps/users" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "frontend"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\New\tree_project\backend\apps\users" />
