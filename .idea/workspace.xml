@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9092567b-ffd2-4b64-b411-ae7dc5403be2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/components/DiscoverItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Loader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Paginator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/screens/Authentication.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/screens/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/screens/Navigation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/slides.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/assets/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/assets/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+    <list default="true" id="9092567b-ffd2-4b64-b411-ae7dc5403be2" name="Default Changelist" comment="after rebasing">
+      <change afterPath="$PROJECT_DIR$/frontend/components/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/NumberInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/NumberInput.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/screens/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +23,13 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="frontend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/frontend" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -51,7 +47,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "frontend"
+    "git-widget-placeholder": "main",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -70,6 +68,14 @@
       <updated>1687072447676</updated>
       <workItem from="1687072449707" duration="2156000" />
     </task>
+    <task id="LOCAL-00001" summary="after rebasing">
+      <created>1687076370453</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1687076370453</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -85,5 +91,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="after rebasing" />
+    <option name="LAST_COMMIT_MESSAGE" value="after rebasing" />
   </component>
 </project>
