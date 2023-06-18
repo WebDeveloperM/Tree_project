@@ -5,5 +5,10 @@ from .models import Plant, Order
 # Register your models here.
 
 
-admin.site.register(Plant)
-admin.site.register(Order)
+@admin.register(Plant)
+class PlantAdmin(admin.ModelAdmin):
+    ...
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    ...
