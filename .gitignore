@@ -7,3 +7,5 @@ backups
 .vscode
 .history
 
+__pycache__/
+*.pyc
