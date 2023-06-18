@@ -1,13 +1,7 @@
 from django.urls import path
-
-
-def finance(request):
-    pass
-
-
+from .views import *
 
 urlpatterns = [
-    path('', finance, name='finance')
+    path('cards/', CardCreateListView.as_view(), name='card'),
+    path('paymets/', PaymentCreateListView.as_view(), name='payment'),
 ]
-
-

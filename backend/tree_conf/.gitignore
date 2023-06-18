@@ -3,7 +3,7 @@
 *.pyc
 /static
 media
-config/settings_dev.py
+tree_conf/settings_dev.py
 config/settings_prod.py
 .DS_Store
 .vscode/settings.json

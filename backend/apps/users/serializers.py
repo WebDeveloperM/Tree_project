@@ -1,10 +1,5 @@
 from rest_framework import serializers
 from users.models import User
-# from users.models import SmsCode
-# from rest_framework.exceptions import ParseError
-# from datetime import datetime
-# from rest_framework.response import Response
-# import random
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -19,11 +19,23 @@ class BaseModel(models.Model):
 
 
 class Plant(BaseModel):
+    CREATED = "created"
+    IN_ORDER = "in_order"
+    DONE = "done"
+
+    STATUS = (
+        (CREATED, 'Created'),
+        (IN_ORDER, 'In Order'),
+        (DONE, 'Done'),
+    )
+
     type = models.CharField(max_length=250)
     order = models.ForeignKey('Order', PROTECT, null=True, blank=False)
-    user = models.ForeignKey('users.User', PROTECT)
-    image = models.ImageField()
+    investor = models.ForeignKey('users.User', PROTECT, related_name='investor_plants')
+    farmer = models.ForeignKey('users.User', PROTECT, related_name='farmer_plants', null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     payment = models.ForeignKey('finance.Payment', PROTECT)
+    status = models.CharField(max_length=255, choices=STATUS, default=CREATED)
 
     objects = PlantQuerySet.as_manager()
 

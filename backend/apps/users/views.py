@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny
 from users.models import User, SmsCode
 from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
 import jwt
 
@@ -64,30 +65,19 @@ class LoginView(APIView):
         user.last_login = datetime.datetime.now()
         user.save()
 
+        token, _ = Token.objects.get_or_create(user=user)
 
-        payload = {
-            "id": user.id,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat': datetime.datetime.utcnow()
-        }
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
-
-        response = Response()
-        response.set_cookie(key="token", value=token, httponly=True)
-        response.data = {
-            "id": user.id,
-            "phone": user.phone,
-            'token': token
-        }
-        return response
+        return Response({
+            'user': {'id': user.id},
+            'token': token.key,
+        })
 
 
 class UserView(APIView):
-
     def post(self, request):
         print(request.data)
-        token = request.COOKIES.get("token")
-        # token = request.data["token"]
+        # token = request.COOKIES.get("token")
+        token = request.data["token"]
         print(token, '*' * 8)
         if not token:
             raise AuthenticationFailed("You don't authenticated!")
