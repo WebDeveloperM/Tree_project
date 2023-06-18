@@ -11,13 +11,13 @@ class User(AbstractUser):
         (INVESTOR, 'Investor'),
         (FARMER, 'Farmer')
     )
+    REQUIRED_FIELDS = ['phone', 'email', 'region']
 
-    username = models.CharField(max_length=200, unique=True)
     phone = models.CharField(max_length=15, unique=True)
     code = models.CharField(null=True, blank=True, unique=True)
-    type = models.CharField(max_length=50, choices=TYPES)
+    type = models.CharField(max_length=50, choices=TYPES, default=FARMER)
     region = models.CharField(max_length=250)
-    objects = UserManager()
+    # objects = UserManager()
 
 
     class Meta(AbstractUser.Meta):
