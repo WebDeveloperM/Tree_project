@@ -8,3 +8,5 @@ backups
 .history
 backend/venv
 
+__pycache__/
+*.pyc
