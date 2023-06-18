@@ -6,7 +6,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
-import jwt
+from rest_framework import status
 
 from django.conf import settings
 # from users.utils.send_code import send_code
@@ -15,6 +15,7 @@ import datetime
 
 class ApiInfo(APIView):
     permission_classes = (AllowAny,)
+
     def get(self, request):
         urlRoots = [{
             "Get_info_url": "/",
@@ -28,6 +29,7 @@ class ApiInfo(APIView):
 
 class RegisterView(APIView):
     permission_classes = (AllowAny,)
+
     def post(self, request):
         phone = request.data.get('phone')
 
@@ -52,6 +54,7 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     permission_classes = (AllowAny,)
+
     def post(self, request):
         phone = request.data.get('phone')
         dispatch_id = request.data.get('dispatch_id')
@@ -68,38 +71,18 @@ class LoginView(APIView):
         token, _ = Token.objects.get_or_create(user=user)
 
         return Response({
-            'user': {'id': user.id},
+            'user': UserSerializer(user).data,
             'token': token.key,
         })
 
 
 class UserView(APIView):
     def post(self, request):
-        print(request.data)
-        # token = request.COOKIES.get("token")
-        token = request.data["token"]
-        print(token, '*' * 8)
-        if not token:
-            raise AuthenticationFailed("You don't authenticated!")
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed("You don't authenticated!")
-
-        user = User.objects.filter(id=payload['id']).first()
-
-        serializer = UserSerializer(user)
-
+        serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
 
 class LogoutView(APIView):
-
-    def post(self, request):
-        response = Response()
-        response.delete_cookie('token')
-        response.data = {
-            "message": "Logout successfull!"
-        }
-
-        return response
+    def get(self, request):
+        request.user.auth_token.delete()
+        return Response({"massage": "Logout successfully !!!!"}, status=status.HTTP_200_OK)
