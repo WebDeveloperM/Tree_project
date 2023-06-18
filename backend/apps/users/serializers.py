@@ -1,20 +1,20 @@
 from rest_framework import serializers
 from .models import User
-from phonenumber_field.phonenumber import PhoneNumber
+import random
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'phone', 'code')
+        fields = ('id', 'phone', "code")
 
     def create(self, validated_data):
         phone = validated_data.pop('phone', None)
-        code = validated_data.pop('code', None)
+        code = str(random.randint(0, 2814749767106558635674786786384))[:4]
+
         if len(phone) == 12:
             instance = self.Meta.model(phone=phone, code=code, **validated_data)
             instance.save()
-            print(instance)
             return instance
         raise ValueError("The phone number must be at least 12 characters long")
 

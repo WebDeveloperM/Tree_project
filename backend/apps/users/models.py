@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from users.queryset.user import UserManager
+from django.db.models import CASCADE
+from main.models import BaseModel
 
 
 class User(AbstractUser):
@@ -14,12 +15,21 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['phone', 'email', 'region']
 
     phone = models.CharField(max_length=15, unique=True)
-    code = models.CharField(max_length=50, unique=True)
     type = models.CharField(max_length=50, choices=TYPES, default=FARMER)
     region = models.CharField(max_length=250)
-    # objects = UserManager()
-
 
     class Meta(AbstractUser.Meta):
         db_table = 'users_user'
         app_label = 'users'
+
+
+class SmsCode(BaseModel):
+    dispatch_id = models.CharField(max_length=8)
+    code = models.CharField(max_length=4)
+    user = models.ForeignKey('users.User', on_delete=CASCADE, related_name='sms_codes')
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        db_table = 'main_codes'

@@ -29,6 +29,7 @@ class RegisterView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         print(serializer.data)
+        print(serializer.data)
         return Response(serializer.data)
 
 
