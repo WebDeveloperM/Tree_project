@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from .models import User
+<<<<<<< HEAD
 import random
+=======
+>>>>>>> 43624627e8bef71fda02dde150c39954318c9194
 
 
 class UserSerializer(serializers.ModelSerializer):
