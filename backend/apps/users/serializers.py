@@ -1,9 +1,5 @@
 from rest_framework import serializers
-from users.models import User, Token
-from users.models import SmsCode
-from rest_framework.exceptions import ParseError
-from datetime import datetime
-from rest_framework.response import Response
+from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):

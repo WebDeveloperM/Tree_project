@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import *
-from ..main.admin import AuthorMixin
+from main.admin import AuthorMixin
 
 
 # Register your models here.
