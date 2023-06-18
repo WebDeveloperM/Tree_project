@@ -1,15 +1,19 @@
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .models import User
-
+from rest_framework.permissions import AllowAny
+from users.models import User, SmsCode
+from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
 from .serializers import UserSerializer
 import jwt
-import datetime
+
 from django.conf import settings
+# from users.utils.send_code import send_code
+import datetime
 
 
 class ApiInfo(APIView):
+    permission_classes = (AllowAny,)
     def get(self, request):
         urlRoots = [{
             "Get_info_url": "/",
@@ -22,6 +26,7 @@ class ApiInfo(APIView):
 
 
 class RegisterView(APIView):
+    permission_classes = (AllowAny,)
     def post(self, request):
         phone = request.data.get('phone')
 
@@ -31,34 +36,34 @@ class RegisterView(APIView):
             return Response(res, 201)
 
             # WITHOUT ESKIZ API DEFAULT CODE is 0000, but worked when already have fixtures
+
+        # SmsCode.objects.create(dispatch_id="12345678", code="1111", user=1)
         fake_data = {
             "message_status": {
                 "status": "success",
                 "message": "Waiting for SMS provider"
             },
             "dispatch_id": 12345678,
-            "phone": request.data['phone']
+            "phone": phone
         }
         return Response(fake_data, 201)
 
 
-        # serializer = UserSerializer(data=request.data)
-        # serializer.is_valid(raise_exception=True)
-        # serializer.save()
-        # print(serializer.data)
-        # print(serializer.data)
-        # return Response(serializer.data)
-
-
 class LoginView(APIView):
+    permission_classes = (AllowAny,)
     def post(self, request):
-        phone = request.data['phone']
-        code = request.data['code']
+        phone = request.data.get('phone')
+        dispatch_id = request.data.get('dispatch_id')
+        code = request.data.get('code')
+        sms_code = SmsCode.objects.filter(dispatch_id=dispatch_id).first()
 
-        user = User.objects.filter(phone=phone).first()
+        if not sms_code or sms_code.code != code:
+            raise ParseError('Verification code incorrect. Try again.', 400)
 
-        if user is None:
-            raise AuthenticationFailed("User not found")
+        user, created = User.objects.update_or_create(phone=phone, email=phone, username=phone)
+        user.last_login = datetime.datetime.now()
+        user.save()
+
 
         payload = {
             "id": user.id,
@@ -78,7 +83,9 @@ class LoginView(APIView):
 
 
 class UserView(APIView):
+
     def post(self, request):
+        print(request.data)
         token = request.COOKIES.get("token")
         # token = request.data["token"]
         print(token, '*' * 8)
@@ -97,6 +104,7 @@ class UserView(APIView):
 
 
 class LogoutView(APIView):
+
     def post(self, request):
         response = Response()
         response.delete_cookie('token')
