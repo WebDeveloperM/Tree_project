@@ -51,6 +51,7 @@
       <change beforePath="$PROJECT_DIR$/apps/users/urls.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/apps/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/apps/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/tree_conf/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tree_conf/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/env/Lib/site-packages/_distutils_hack/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/env/Lib/site-packages/_distutils_hack/override.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/env/Lib/site-packages/distutils-precedence.pth" beforeDir="false" />
@@ -881,7 +882,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1687072447676</updated>
-      <workItem from="1687072449707" duration="1799000" />
+      <workItem from="1687072449707" duration="2156000" />
     </task>
     <servers />
   </component>
