@@ -22,6 +22,6 @@ urlpatterns = [
     path('api/v1/', include([
         path('users/', include(('users.urls', 'apps.users'), namespace='users')),
         path('finance/', include(('finance.urls', 'apps.finance'), namespace='finance')),
-        path('main/', include(('main.urls', 'apps.main'), namespace='main')),
+        path('main/', include(('main.urls', 'apps.main'), namespace='main'))
     ])),
 ]
