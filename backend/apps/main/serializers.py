@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from main.models import Plant, Order
 
+
+
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
@@ -11,4 +13,6 @@ class PlantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'discount', 'discount_reason')
+        fields = ('farmer','latitude','longitude','status')
+
+        

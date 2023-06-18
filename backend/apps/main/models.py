@@ -37,14 +37,15 @@ class Order(BaseModel):
     DONE = "done"
 
     STATUS = (
-        (CREATED, 'Not done'),
+        (CREATED, 'Created'),
         (IN_PROCESS, 'In process'),
         (DONE, 'Done'),
     )
 
-    farmer = models.ForeignKey('users.User', PROTECT)
+    farmer = models.ForeignKey('users.User', PROTECT, null=True, blank=True)
     latitude = models.FloatField()  # x
     longitude = models.FloatField()  # y
+    count = models.IntegerField()
     status = models.CharField(max_length=255, choices=STATUS, default=CREATED)
 
     objects = OrderQuerySet.as_manager()
