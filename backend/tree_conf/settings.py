@@ -41,7 +41,6 @@ sys.path.append(os.path.join(BASE_DIR, 'apps'))
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
