@@ -1,0 +1,7 @@
+.idea
+.github/.idea
+media
+backups
+.DS_Store
+.vscode
+.history
