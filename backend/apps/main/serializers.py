@@ -13,6 +13,6 @@ class PlantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('farmer','latitude','longitude','status')
+        fields = ('farmer', 'latitude', 'longitude', 'status')
 
         
