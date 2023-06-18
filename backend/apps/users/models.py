@@ -2,8 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CASCADE
 from main.models import BaseModel
-from users.utils.fields import expires_default
-from users.utils import tokens
+# from users.utils.fields import expires_default
+# from users.utils import tokens
 
 
 class User(AbstractUser):
@@ -23,24 +23,6 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         db_table = 'users_user'
         app_label = 'users'
-
-
-class Token(BaseModel):
-    key = models.CharField(max_length=40, unique=True)
-    is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, models.CASCADE, related_name='tokens')
-    expires_at = models.DateTimeField(default=expires_default)  # token expires in 30 days
-
-    def save(self, *args, **kwargs):
-        if not self.key:
-            self.key = tokens.generate()
-        return super(Token, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.key
-
-    class Meta:
-        db_table = 'user_tokens'
 
 
 class SmsCode(BaseModel):

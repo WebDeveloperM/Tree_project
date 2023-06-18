@@ -165,6 +165,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000'
 )
 
+SMS_CODE_ACTIVE = False
 try:
     from .settings_dev import *
 except ImportError:
