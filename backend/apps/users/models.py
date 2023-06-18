@@ -14,7 +14,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['phone', 'email', 'region']
 
     phone = models.CharField(max_length=15, unique=True)
-    code = models.CharField(null=True, blank=True, unique=True)
+    code = models.CharField(max_length=50, unique=True)
     type = models.CharField(max_length=50, choices=TYPES, default=FARMER)
     region = models.CharField(max_length=250)
     # objects = UserManager()
