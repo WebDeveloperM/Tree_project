@@ -1,0 +1,13 @@
+.social_btn {
+    display: block;
+    width: 100%;
+    width: 400px;
+}
+.links__container {
+    min-height: 80vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
