@@ -8,6 +8,7 @@ import Navigation from "./screens/Navigation";
 import Home from "./screens/Home";
 import Jobs from "./screens/Jobs";
 import MyWork from "./screens/MyWork";
+import Order from "./screens/Order";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
                 <Stack.Screen name="Home" component={Home} options={hideHeader}/>
                 <Stack.Screen name="Jobs" component={Jobs} options={hideHeader}/>
                 <Stack.Screen name="MyWork" component={MyWork} options={hideHeader}/>
+                <Stack.Screen name="Order" component={Order} options={hideHeader}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
