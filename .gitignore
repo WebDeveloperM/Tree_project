@@ -1,5 +1,6 @@
 .idea
 .github/.idea
+frontend/.idea
 media
 backups
 .DS_Store
