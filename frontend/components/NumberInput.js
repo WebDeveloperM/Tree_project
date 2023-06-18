@@ -22,7 +22,7 @@ export default function NumberInput({phoneNumber, confirm, timer, setTimer, valu
     }, [timer, confirm])
     return (
         <>
-            <Text className='w-[80%] px-3 mt-16 text-[15px] font-semibold'>
+            <Text className='w-[80%] px-3 mt-5 text-[15px] font-semibold'>
                 We have sent an OTP code to phone number
                 +998 {phoneNumber} Enter the OTP code below
                 to sign in

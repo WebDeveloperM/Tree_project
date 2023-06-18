@@ -1,6 +1,3 @@
-
-import requests
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .models import User
@@ -9,6 +6,7 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 import jwt
 import datetime
+from django.conf import settings
 
 
 class ApiInfo(APIView):
@@ -25,12 +23,31 @@ class ApiInfo(APIView):
 
 class RegisterView(APIView):
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        print(serializer.data)
-        print(serializer.data)
-        return Response(serializer.data)
+        phone = request.data.get('phone')
+
+        if settings.SMS_CODE_ACTIVE:
+            # res = send_code(request.data['phone'])
+            res = {"msg": "ok"}
+            return Response(res, 201)
+
+            # WITHOUT ESKIZ API DEFAULT CODE is 0000, but worked when already have fixtures
+        fake_data = {
+            "message_status": {
+                "status": "success",
+                "message": "Waiting for SMS provider"
+            },
+            "dispatch_id": 12345678,
+            "phone": request.data['phone']
+        }
+        return Response(fake_data, 201)
+
+
+        # serializer = UserSerializer(data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # serializer.save()
+        # print(serializer.data)
+        # print(serializer.data)
+        # return Response(serializer.data)
 
 
 class LoginView(APIView):
