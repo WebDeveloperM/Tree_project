@@ -16,3 +16,4 @@ uploads
 vandelay-py.js
 .envrc
 files
+settings_dev.py
