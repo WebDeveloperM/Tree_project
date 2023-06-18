@@ -1,9 +1,11 @@
 from django.urls import path
-from main.views import PlantListView
+from main.views import *
 
 
 urlpatterns = [
-    path('', PlantListView.as_view(), name='main')
+    path('plant/',PlantCreateListView.as_view(),name='plant'),
+    path('order/',OrderCreateListView.as_view(),name='order'),
+ 
 ]
 
 
