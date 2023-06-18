@@ -1,7 +1,8 @@
 import React from 'react';
 import {Image, SafeAreaView, Text, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import Footer from "../components/Footer";
+
+import InvestorFooter from "../components/InvestorFooter";
 
 
 export default function Jobs() {
@@ -60,7 +61,7 @@ export default function Jobs() {
                     </View>
                 </View>
             </View>
-            <Footer />
+            <InvestorFooter />
         </SafeAreaView>
     );
 }

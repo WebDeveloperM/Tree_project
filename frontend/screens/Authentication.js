@@ -11,6 +11,8 @@ import {
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import MaskInput from 'react-native-mask-input';
 import NumberInput from "../components/NumberInput";
+import axios from "axios";
+import {REGISTER} from "./utils/urls";
 
 export default function Authentication() {
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -22,6 +24,7 @@ export default function Authentication() {
     const [changed, setChanged] = useState(false)
     const navigation = useNavigation()
 
+    console.log(passwordValue)
     const startAnimation = () => {
         Animated.loop(
             Animated.timing(animation, {
@@ -38,10 +41,10 @@ export default function Authentication() {
         outputRange: ['0deg', '360deg'],
     });
 
-    const confirmNumber = () => {
-        phoneNumber.length === 14 && setConfirm(true)
-        setTimer(60)
-    }
+    // const confirmNumber = () => {
+    //     phoneNumber.length === 14 && setConfirm(true)
+    //     setTimer(60)
+    // }
 
     useEffect(() => {
         startAnimation();
@@ -58,8 +61,39 @@ export default function Authentication() {
         if (Object.values(passwordValue).every(Boolean) && !changed) {
             setModalVisible(true)
             setChanged(true)
+            // loginUser()
         }
     }, [passwordValue]);
+
+
+    const confirmNumber = async () => {
+        setTimer(60);
+        try {
+            const registerResponse = await axios.post(REGISTER, {
+                phone: phoneNumber
+            });
+            console.log(registerResponse)
+            const dispatch = registerResponse.data.dispatch_id;
+            const phone = registerResponse.data.phone;
+            await loginUser(phone, dispatch);
+            setConfirm(true)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const loginUser = async (phone, dispatch) => {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/v1/users/login/', {
+                phone: phone,
+                dispatch_id: dispatch,
+                code: 1111
+            });
+            console.log(response);
+        } catch (error) {
+            console.error(error.response.data);
+        }
+    };
 
     return (
         <SafeAreaView className="flex-1 items-center bg-white">

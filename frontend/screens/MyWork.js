@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, SafeAreaView, Text, View} from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import Footer from "../components/Footer";
+import InvestorFooter from "../components/InvestorFooter";
 
 
 export default function MyWork() {
@@ -47,7 +47,7 @@ export default function MyWork() {
                         <Image className='w-14 h-14' source={require('../assets/backgroundVektor.png')}/>
                     </View>
                 </View>
-               <View
+                <View
                     className='w-[80%] mb-10 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                     <View className='mr-3'>
                         <Image className='w-12 h-14' source={require('../assets/location-green.png')}/>
@@ -84,7 +84,7 @@ export default function MyWork() {
                     </View>
                 </View>
             </View>
-            <Footer/>
+            <InvestorFooter/>
         </SafeAreaView>
     );
 }
