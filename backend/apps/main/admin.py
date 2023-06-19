@@ -18,7 +18,8 @@ class AuthorMixin:
 
 @admin.register(Plant)
 class PlantAdmin(AuthorMixin, admin.ModelAdmin):
-    ...
+    list_display = ('type', 'order', 'investor')
+
 
 @admin.register(Order)
 class OrderAdmin(AuthorMixin, admin.ModelAdmin):

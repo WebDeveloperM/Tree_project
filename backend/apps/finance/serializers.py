@@ -16,6 +16,8 @@ class PaymentSerializer(serializers.ModelSerializer):
         data['user'] = user
         instance = super().create(data)
 
+        # Plant.objects.sldfjasfj(instance, user)
+
         Plant.objects.bulk_create([
             Plant(type='oak', investor=user, payment=instance)
             for _ in range(instance.count)
