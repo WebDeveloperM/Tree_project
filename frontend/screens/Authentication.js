@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import MaskInput from 'react-native-mask-input';
+import Button from "../components/common/Button";
 // import NumberInput from "../components/NumberInput";
 // import axios from "axios";
 // import {REGISTER} from "./utils/urls"
@@ -87,8 +88,8 @@ export default function Authentication() {
                     </View>
                 </View>
                 <Pressable onPress={() => confirmNumber()}>
-                    <View className='w-80 mt-32 rounded-2xl h-14 bg-[#31B44C] items-center justify-center'>
-                        <Text className='font-bold text-[20px] text-white'>Send code</Text>
+                    <View className='w-80 mt-36'>
+                        <Button text={'Send code'}/>
                     </View>
                 </Pressable>
             </View>
