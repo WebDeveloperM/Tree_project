@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from main.serializers import PlantSerializer,OrderSerializer
-from rest_framework import generics
-from main.models import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# from main.models import Plant
+from rest_framework import generics
+from main.models import Plant, Order
 
 
 # class PlantCreateListView(generics.ListCreateAPIView):
