@@ -9,13 +9,13 @@ from main.models import *
 
 # Create your views here.
 
-class PlantCreateListView(generics.ListCreateAPIView):
+class PlantListView(generics.ListAPIView):
     queryset = Plant.objects.all()
     serializer_class = PlantSerializer
 
 
 
-class OrderCreateListView(generics.ListCreateAPIView):
+class OrderListView(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 

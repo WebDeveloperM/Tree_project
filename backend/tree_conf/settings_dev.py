@@ -3,9 +3,9 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tree_database',
-        'USER': 'rakhmatullo',
-        'PASSWORD': '3305',
+        'NAME': 'tree_db',
+        'USER': 'postgres',
+        'PASSWORD': '2001',
         'HOST': 'localhost',
         'PORT': 5432,
     }
