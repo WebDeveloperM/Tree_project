@@ -12,7 +12,7 @@ class CardAdmin(AuthorMixin, admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(AuthorMixin, admin.ModelAdmin):
-    list_display = ('user', 'card', 'count')
+    list_display = ('user', 'count', 'amount')
 
     def has_change_permission(self, request, obj=None):
         return False
