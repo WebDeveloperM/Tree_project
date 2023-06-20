@@ -43,14 +43,15 @@ class Plant(BaseModel):
         db_table = 'main_plants'
 
 
+
 class Order(BaseModel):
-    CREATED = "created"
-    IN_PROCESS = "in_process"
-    DONE = "done"
+    CREATED = "Created"
+    IN_PROCESS = "In_process"
+    DONE = "Done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_PROCESS, 'In process'),
+        (IN_PROCESS, 'In_process'),
         (DONE, 'Done'),
     )
 

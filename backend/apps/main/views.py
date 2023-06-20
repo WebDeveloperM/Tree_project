@@ -25,9 +25,17 @@ class PlantCreateListView(APIView):
         })
 
 
-class OrderCreateListView(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class OrderCreateListView(APIView):
+    def post(self, request):
+        latitude = request.data.get('latitude')
+        longitude = request.data.get('longitude')
+        count = request.data.get('count')
+
+
+        order = Order.objects.create(longitude=longitude, latitude=latitude, count=count, farmer=request.user)
+        serializer = OrderSerializer(order)
+        return Response(serializer.data)
+
 
 
 class AllJobsAPIView(APIView):

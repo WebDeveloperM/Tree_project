@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from .models import *
 from main.admin import AuthorMixin
+from django.conf import settings
 
 
 # Register your models here.
@@ -15,7 +16,11 @@ class PaymentAdmin(AuthorMixin, admin.ModelAdmin):
     list_display = ('user', 'count', 'amount')
 
     def has_change_permission(self, request, obj=None):
-        return False
+        if settings.SMS_CODE_ACTIVE:
+            return False
+        return True
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        if settings.SMS_CODE_ACTIVE:
+            return False
+        return True

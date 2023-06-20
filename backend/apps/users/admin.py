@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import User, SmsCode
-
+from django.conf import settings
 
 # Register your models here.
 
@@ -12,11 +12,16 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(SmsCode)
 class SmscodeAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
-        return False
-
+        if settings.SMS_CODE_ACTIVE:
+            return False
+        return True
     def has_change_permission(self, request, obj=None):
-        return False
+        if settings.SMS_CODE_ACTIVE:
+            return False
+        return True
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        if settings.SMS_CODE_ACTIVE:
+            return False
+        return True
 

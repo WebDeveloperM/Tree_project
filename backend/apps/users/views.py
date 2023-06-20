@@ -43,6 +43,9 @@ class RegisterView(APIView):
             # WITHOUT ESKIZ API DEFAULT CODE is 0000, but worked when already have fixtures
 
         # SmsCode.objects.create(dispatch_id="12345678", code="1111", user=1)
+        user = User.objects.filter(phone=phone).first()
+        if user:
+            return Response({"message": "Thes user alredy registered"})
         User.objects.update_or_create(phone=phone, email=phone, username=phone, type=type, region=region)
         fake_data = {
             "message_status": {
