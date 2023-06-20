@@ -2,23 +2,24 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Animated, Easing, Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import NumberInput from "../components/NumberInput";
 import {useNavigation} from "@react-navigation/native";
+import axios from "axios";
 
 
 export default function VerificationCode({confirm}) {
     const [passwordValue, setPasswordValue] = React.useState({1: '', 2: '', 3: '', 4: ''})
     const [timer, setTimer] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
-    const [open,setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
     const navigation = useNavigation()
+    let allPassword = `${passwordValue["1"]}${passwordValue["2"]}${passwordValue["3"]}${passwordValue["4"]}`
 
     useEffect(() => {
         setTimer(60)
     }, []);
 
     useEffect(() => {
-        if (Object.values(passwordValue).every(Boolean) && !open) {
-            setModalVisible(true)
-            setOpen(true)
+        if (allPassword.length === 4) {
+            login()
         }
     }, [passwordValue]);
 
@@ -27,8 +28,23 @@ export default function VerificationCode({confirm}) {
             const interval = setInterval(() => setTimer(timer - 1), 1000)
             return () => clearInterval(interval)
         }
-    }, [timer, confirm])
+    }, [timer])
 
+
+    const login = async (phone, dispatch) => {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/v1/users/login/', {
+                phone: 997072820,
+                dispatch_id: 12345678,
+                code: allPassword
+            });
+            setModalVisible(true)
+            setOpen(true)
+            console.log(response);
+        } catch (error) {
+            Alert.alert(error.response.data.detail)
+        }
+    };
 
     return (
         <View className="flex-1 items-center">

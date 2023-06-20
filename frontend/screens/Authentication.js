@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import MaskInput from 'react-native-mask-input';
+import axios from "axios";
+import {REGISTER} from "./utils/urls";
+import {useRoute} from "@react-navigation/native";
 import Button from "../components/common/Button";
 // import NumberInput from "../components/NumberInput";
 // import axios from "axios";
@@ -16,13 +19,12 @@ import Button from "../components/common/Button";
 export default function Authentication() {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [confirm, setConfirm] = useState(false)
+    const route = useRoute();
+    const {region, user} = route.params;
+    console.log(region, user)
 
     const navigation = useNavigation()
 
-    const confirmNumber = () => {
-        phoneNumber.length === 14 && setConfirm(true)
-        navigation.navigate('VerificationCode', {confirm})
-    }
 
     useEffect(() => {
         phoneNumber.length !== 14 && setConfirm(false)
@@ -32,34 +34,23 @@ export default function Authentication() {
     }, [phoneNumber])
 
 
-    // const confirmNumber = async () => {
-    //     setTimer(60);
-    //     try {
-    //         const registerResponse = await axios.post(REGISTER, {
-    //             phone: phoneNumber
-    //         });
-    //         console.log(registerResponse)
-    //         const dispatch = registerResponse.data.dispatch_id;
-    //         const phone = registerResponse.data.phone;
-    //         await loginUser(phone, dispatch);
-    //         setConfirm(true)
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    // const loginUser = async (phone, dispatch) => {
-    //     try {
-    //         const response = await axios.post('http://127.0.0.1:8000/api/v1/users/login/', {
-    //             phone: phone,
-    //             dispatch_id: dispatch,
-    //             code: 1111
-    //         });
-    //         console.log(response);
-    //     } catch (error) {
-    //         console.error(error.response.data);
-    //     }
-    // };
+    const confirmNumber = async () => {
+        if (phoneNumber.length === 14) {
+            setConfirm(true)
+        }
+        try {
+            const registerResponse = await axios.post(REGISTER, {
+                phone: phoneNumber
+            });
+            console.log(registerResponse.data)
+            const dispatch = registerResponse.data.dispatch_id;
+            const phone = registerResponse.data.phone;
+            // await loginUser(phone, dispatch);
+            navigation.navigate('VerificationCode', {confirm})
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <SafeAreaView className="flex-1 items-center bg-white">
