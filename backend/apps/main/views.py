@@ -32,26 +32,17 @@ class PlantCreateListView(APIView):
         })
 
 
-<<<<<<< HEAD
-
 class OrderListView(generics.ListAPIView):
-=======
+    pass
+
+
 class OrderCreateListView(generics.ListCreateAPIView):
->>>>>>> 6e9e5b58a17433944177bf3ffd2f36774a03db3f
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 
-<<<<<<< HEAD
-
-
-
-
-=======
 class AllJobsAPIView(APIView):
     def get(self, request):
         plants = Plant.objects.filter(status=Plant.CREATED)
-        print(plants)
         serialiser = PlantSerializer(plants)
         return Response({"msg": serialiser.data})
->>>>>>> 6e9e5b58a17433944177bf3ffd2f36774a03db3f
