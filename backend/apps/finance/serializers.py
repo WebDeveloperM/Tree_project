@@ -15,18 +15,14 @@ class CardSerializer(serializers.ModelSerializer):
         fields = ('id', 'number', 'due_date', 'user')
 
 
+class CardListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ('id', 'number', 'due_date', 'user')
+
+
 class PaymentSerializer(serializers.ModelSerializer):
-    # def create(self, data):
-    #     user = self.context['request'].user
-    #     data['user'] = user
-    #     instance = super().create(data)
-    #
-    #     Plant.objects.bulk_create([
-    #         Plant(type='oak', investor=user, payment=instance)
-    #         for _ in range(instance.count)
-    #     ])
-    #
-    #     return instance
+
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         ret["card"] = CardSerializer(instance.card).data

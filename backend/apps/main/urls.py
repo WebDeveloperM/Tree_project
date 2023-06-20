@@ -1,9 +1,7 @@
 from django.urls import path
-from main.views import PlantCreateListView, OrderCreateListView, AllJobsAPIView
+from main.views import PlantCreateListView, OrderListView
 
 urlpatterns = [
-    path('plant/', PlantCreateListView.as_view(), name='plant'),
-    path('order/', OrderCreateListView.as_view(), name='order'),
-    path('all-jobs/', AllJobsAPIView.as_view(), name='all-jobs'),
-
+    path('plant/', PlantCreateListView.as_view()),
+    path('order/', OrderListView.as_view()),
 ]

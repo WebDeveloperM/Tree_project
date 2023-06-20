@@ -3,6 +3,7 @@ from main.serializers import PlantSerializer, OrderSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework import status
 from main.models import Plant, Order
 
 
@@ -10,6 +11,13 @@ from main.models import Plant, Order
 #     queryset = Plant.objects.all()
 #     serializer_class = PlantSerializer
 #
+# class PlantCreateListView(APIView):
+#     def get(self, request):
+#         base = Plant.objects.filter(investor=request.user)
+#         done = base.filter(status=Plant.DONE)
+#         in_order = base.filter(status=Plant.IN_ORDER)
+#         created = base.filter(status=Plant.CREATED)
+
 class PlantCreateListView(APIView):
     def get(self, request):
         base = Plant.objects.filter(investor=request.user)
@@ -25,22 +33,8 @@ class PlantCreateListView(APIView):
         })
 
 
-class OrderCreateListView(APIView):
-    def post(self, request):
-        latitude = request.data.get('latitude')
-        longitude = request.data.get('longitude')
-        count = request.data.get('count')
-
-
-        order = Order.objects.create(longitude=longitude, latitude=latitude, count=count, farmer=request.user)
-        serializer = OrderSerializer(order)
-        return Response(serializer.data)
-
-
-
-class AllJobsAPIView(APIView):
+class OrderListView(APIView):
     def get(self, request):
-        plants = Plant.objects.filter(status=Plant.CREATED)
-        print(plants)
-        serialiser = PlantSerializer(plants)
-        return Response({"msg": serialiser.data})
+        orders = Order.objects.filter(status=Order.CREATED)
+        serialiser = OrderSerializer(orders, many=True)
+        return Response(serialiser.data, status=status.HTTP_200_OK)

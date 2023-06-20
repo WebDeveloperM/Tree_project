@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, Pressable, SafeAreaView, Text, View} from 'react-native';
+import {Alert, Image, Pressable, SafeAreaView, Text, View} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 
@@ -32,6 +32,16 @@ export default function Information() {
     const [userOpen, setUserOpen] = React.useState(false);
 
     const navigation = useNavigation()
+
+
+    const handleContinue = () => {
+        if (!region || !user) {
+            Alert.alert("Please select a region and user type!");
+            return;
+        }
+        navigation.navigate('Authentication', {region, user});
+    };
+
 
     return (
         <SafeAreaView className='flex-1 bg-white'>
@@ -77,7 +87,7 @@ export default function Information() {
                             <Image source={require('../assets/location-icon.png')}/>
                         </View>
                     </Pressable>
-                    <Pressable onPress={() => navigation.navigate('Authentication')}>
+                    <Pressable onPress={handleContinue}>
                         <View
                             className='w-16 h-16 bg-[#D6F0DB] rounded-xl border border-[#1B772E] items-center justify-center'>
                             <Image source={require('../assets/arrow-right-icon.png')}/>

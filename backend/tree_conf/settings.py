@@ -170,3 +170,5 @@ try:
     from .settings_dev import *
 except ImportError:
     pass
+
+MAPS_API_KEY = 'AIzaSyBI8bYXK0GzGBDEc_SCdHQ6RLPLIGDzB1Q'

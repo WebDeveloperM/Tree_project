@@ -4,15 +4,29 @@ from finance.models import Card, Payment
 from main.models import Plant
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import CardSerializer, PaymentSerializer
+from rest_framework import status
+from finance.serializers import CardSerializer, PaymentSerializer, CardListSerializer
+from django.db.models import Q
+
+
+class CardListView(APIView):
+    def get(self, request):
+        number = request.data.get("number")
+        due_date = request.data.get("due_date")
+        card = Card.objects.filter(number=number).filter(due_date=due_date).first()
+        if not card:
+            card = Card.objects.create(number=number, due_date=due_date, user=request.user)
+            serialiser = CardListSerializer(card)
+            return Response(serialiser.data, status=status.HTTP_200_OK)
+        serialiser = CardListSerializer(card)
+        return Response(serialiser.data, status=status.HTTP_200_OK)
 
 
 class CardCreateListView(APIView):
-
     def post(self, request):
         number = request.data.get("number")
         due_date = request.data.get("due_date")
-        card = Card.objects.filter(user=request.user).first()
+        card = Card.objects.filter(number=number).filter(due_date=due_date).first()
         if not card:
             card = Card.objects.create(number=number, due_date=due_date, user=request.user)
             serializer = CardSerializer(card)

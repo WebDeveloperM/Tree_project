@@ -90,5 +90,5 @@ class UserView(APIView):
 
 class LogoutView(APIView):
     def get(self, request):
-        request.user.auth_token.delete()
+        request.user.delete()
         return Response({"massage": "Logout successfully !!!!"}, status=status.HTTP_200_OK)
