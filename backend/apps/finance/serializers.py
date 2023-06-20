@@ -5,11 +5,6 @@ from finance.models import Card, Payment
 
 
 class CardSerializer(serializers.ModelSerializer):
-    # def create(self, request):
-    #     user = request.data['user']
-    #     print(user)
-    #     return {"msg": "created"}
-
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         ret["user"] = UserSerializer(instance.user).data

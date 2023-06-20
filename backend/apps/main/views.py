@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from main.serializers import PlantSerializer,OrderSerializer
+from main.serializers import PlantSerializer, OrderSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -25,11 +25,14 @@ class PlantCreateListView(APIView):
         })
 
 
-
 class OrderCreateListView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 
-
-
+class AllJobsAPIView(APIView):
+    def get(self, request):
+        plants = Plant.objects.filter(status=Plant.CREATED)
+        print(plants)
+        serialiser = PlantSerializer(plants)
+        return Response({"msg": serialiser.data})

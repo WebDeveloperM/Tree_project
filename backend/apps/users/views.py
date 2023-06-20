@@ -32,6 +32,8 @@ class RegisterView(APIView):
 
     def post(self, request):
         phone = request.data.get('phone')
+        type = request.data.get('type')
+        region = request.data.get('region')
 
         if settings.SMS_CODE_ACTIVE:
             # res = send_code(request.data['phone'])
@@ -41,7 +43,7 @@ class RegisterView(APIView):
             # WITHOUT ESKIZ API DEFAULT CODE is 0000, but worked when already have fixtures
 
         # SmsCode.objects.create(dispatch_id="12345678", code="1111", user=1)
-        User.objects.update_or_create(phone=phone, email=phone, username=phone)
+        User.objects.update_or_create(phone=phone, email=phone, username=phone, type=type, region=region)
         fake_data = {
             "message_status": {
                 "status": "success",

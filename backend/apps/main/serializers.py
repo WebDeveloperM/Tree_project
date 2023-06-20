@@ -5,7 +5,7 @@ from main.models import Plant, Order
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
-        fields = ('id', 'type', 'order', 'image', "payment_id")
+        fields = ('id', 'order', 'image', "payment_id")
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
