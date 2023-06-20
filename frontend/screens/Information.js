@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Alert, Image, Pressable, SafeAreaView, Text, View} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
@@ -20,8 +20,8 @@ const regions = [
 ]
 
 const userTypes = [
-    {id: '1', value: 'Investor', label: 'Investor'},
-    {id: '2', value: 'Participant', label: 'Participant'},
+    {key: 1, value: 'Investor', label: 'Investor'},
+    {key: 2, value: 'Participant', label: 'Participant'},
 ]
 
 
@@ -30,16 +30,16 @@ export default function Information() {
     const [regionOpen, setRegionOpen] = React.useState(false);
     const [user, setUser] = React.useState(null)
     const [userOpen, setUserOpen] = React.useState(false);
-
     const navigation = useNavigation()
-
 
     const handleContinue = () => {
         if (!region || !user) {
             Alert.alert("Please select a region and user type!");
             return;
         }
-        navigation.navigate('Authentication', {region, user});
+
+        const {key} = userTypes.find(type => type.value === user)
+        navigation.navigate('Authentication', {region, key});
     };
 
 

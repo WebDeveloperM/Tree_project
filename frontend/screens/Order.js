@@ -2,9 +2,29 @@ import React from 'react';
 import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import InvestorFooter from "../components/InvestorFooter";
 import {useNavigation} from "@react-navigation/native";
+import axios from 'axios';
+import {PAYMENTS} from "./utils/urls";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Order() {
     const navigation = useNavigation()
+
+    const createOrder = async (id) => {
+        try {
+            const token = await AsyncStorage.getItem('token')
+            const headers = {
+                Authorization: `Token ${token}`,
+                'Content-Type': 'application/json',
+            };
+            const response = await axios.post(PAYMENTS, {
+                count: id
+            }, {headers});
+            console.log(response.data);
+            navigation.navigate('AddCard')
+        } catch (error) {
+            console.error(error.response.data);
+        }
+    };
     return (
         <SafeAreaView className="flex-1 bg-white">
             <ScrollView showsVerticalScrollIndicator={false}
@@ -16,7 +36,7 @@ export default function Order() {
                     </View>
                     <Text className='text-[30px] text-[#0AC16D] font-bold mb-10'>Lorem Ipsum</Text>
                     <View className='items-center w-full'>
-                        <Pressable onPress={() => navigation.navigate('AddCard')} className='w-[80%]'>
+                        <Pressable onPress={() => createOrder(1)} className='w-[80%]'>
                             <View
                                 className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                 <View
@@ -28,36 +48,39 @@ export default function Order() {
                                 </View>
                             </View>
                         </Pressable>
-                        <View
-                            className='w-[80%] mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                        <Pressable onPress={() => createOrder(5)} className='w-[80%]'>
                             <View
-                                className='border border-[#1B772E] rounded-2xl w-20 h-20 justify-center items-center bg-white mr-3'>
-                                <Image className='w-16 h-10' source={require('../assets/trees-5.png')}/>
+                                className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                                <View className='border border-[#1B772E] rounded-2xl p-2 bg-white mr-3'>
+                                    <Image className='h-14 w-14' source={require('../assets/tree.png')}/>
+                                </View>
+                                <View className=''>
+                                    <Text className='text-[30px] font-semibold'>5 piece</Text>
+                                </View>
                             </View>
-                            <View className=''>
-                                <Text className='text-[30px] font-semibold'>5 piece</Text>
-                            </View>
-                        </View>
-                        <View
-                            className='w-[80%] mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                        </Pressable>
+                        <Pressable onPress={() => createOrder(20)} className='w-[80%]'>
                             <View
-                                className='border border-[#1B772E] rounded-2xl w-20 h-20 justify-center items-center bg-white mr-3'>
-                                <Image className='w-16 h-12' source={require('../assets/trees-20.png')}/>
+                                className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                                <View className='border border-[#1B772E] rounded-2xl p-2 bg-white mr-3'>
+                                    <Image className='h-14 w-14' source={require('../assets/tree.png')}/>
+                                </View>
+                                <View className=''>
+                                    <Text className='text-[30px] font-semibold'>20 piece</Text>
+                                </View>
                             </View>
-                            <View className=''>
-                                <Text className='text-[30px] font-semibold'>20 piece</Text>
-                            </View>
-                        </View>
-                        <View
-                            className='w-[80%] mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                        </Pressable>
+                        <Pressable className='w-[80%]'>
                             <View
-                                className='border border-[#1B772E] rounded-2xl w-20 h-20 justify-center items-center bg-white mr-3'>
-                                <Image className='w-16 h-12' source={require('../assets/tree-count.png')}/>
+                                className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
+                                <View className='border border-[#1B772E] rounded-2xl p-2 bg-white mr-3'>
+                                    <Image className='h-14 w-14' source={require('../assets/tree.png')}/>
+                                </View>
+                                <View className=''>
+                                    <Text className='text-[30px] font-semibold'>Other</Text>
+                                </View>
                             </View>
-                            <View className=''>
-                                <Text className='text-[30px] font-semibold'>Others</Text>
-                            </View>
-                        </View>
+                        </Pressable>
                     </View>
                 </View>
             </ScrollView>
