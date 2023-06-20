@@ -1,7 +1,7 @@
 env
 venv
 .idea
-tree_conf/settings_dev.py
+settings_dev.py
 .DS_Store
 local-cdn/
 
