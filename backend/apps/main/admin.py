@@ -18,13 +18,20 @@ class AuthorMixin:
 
 @admin.register(Plant)
 class PlantAdmin(AuthorMixin, admin.ModelAdmin):
-    ...
+    list_display = ('type', 'farmer', 'investor')
+    list_filter = ('status', 'payment')
+
 
 @admin.register(Order)
 class OrderAdmin(AuthorMixin, admin.ModelAdmin):
     form = OrderForm
     list_display = ('status', 'count', 'farmer')
+
     fields = ('latitude', 'longitude', 'count', 'location')
+
+    list_filter = ('status', 'count', 'farmer' )
+    fields = ('latitude', 'longitude', 'count')
+
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
