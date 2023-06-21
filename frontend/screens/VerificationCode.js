@@ -44,7 +44,7 @@ export default function VerificationCode({confirm}) {
             });
             setModalVisible(true)
             setOpen(true)
-
+            console.log(response.data.token)
             await AsyncStorage.setItem("token", response.data.token)
             setTimeout(() => {
                 navigation.navigate('Home');
