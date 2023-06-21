@@ -14,7 +14,6 @@ export default function AddCard() {
     const [cardDate, setCardDate] = useState('')
     const [cardCvv, setCardCvv] = useState('')
     const navigation = useNavigation()
-
     const addCard = async () => {
         try {
             if (validateData(cardNumber, cardDate, cardCvv)) {
@@ -23,18 +22,18 @@ export default function AddCard() {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json',
                 };
+                console.log(cardDate.replace('/', ''))
                 const response = await axios.post(ADD_CARD, {
-                    number: Number(cardNumber),
-                    due_date: Number(cardDate)
+                    number: cardNumber.replace(/\s+/g, ''),
+                    due_date: cardDate.replace('/', '')
                 }, {headers});
                 console.log(response.data);
-                // navigation.navigate('Payment')
+                navigation.navigate('Payment')
             }
         } catch (error) {
             console.error(error.response.data);
         }
     };
-
     return (
         <View className="flex-1 items-center px-6 py-14 bg-white">
             <View className='w-full flex-row justify-between mb-8'>

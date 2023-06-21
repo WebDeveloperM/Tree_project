@@ -3,24 +3,29 @@ import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-nati
 import InvestorFooter from "../components/InvestorFooter";
 import {useNavigation} from "@react-navigation/native";
 import axios from 'axios';
-import {PAYMENTS} from "./utils/urls";
+import {GET_CARD} from "./utils/urls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Order() {
     const navigation = useNavigation()
 
-    const createOrder = async (id) => {
+    const getCard = async (id) => {
         try {
             const token = await AsyncStorage.getItem('token')
+            console.log(token)
             const headers = {
                 Authorization: `Token ${token}`,
                 'Content-Type': 'application/json',
             };
-            const response = await axios.post(PAYMENTS, {
-                count: id
-            }, {headers});
-            console.log(response.data);
-            navigation.navigate('AddCard')
+            const response = await axios.get(GET_CARD, {headers})
+            const carDate = response?.data[0]?.due_date
+            const numberCard = response?.data[0]?.number
+            console.log(response.data)
+            if (response.data.length === 0) {
+                navigation.navigate('AddCard')
+            } else {
+                navigation.navigate('Payment', {numberCard, id})
+            }
         } catch (error) {
             console.error(error.response.data);
         }
@@ -36,7 +41,7 @@ export default function Order() {
                     </View>
                     <Text className='text-[30px] text-[#0AC16D] font-bold mb-10'>Lorem Ipsum</Text>
                     <View className='items-center w-full'>
-                        <Pressable onPress={() => createOrder(1)} className='w-[80%]'>
+                        <Pressable onPress={() => getCard(1)} className='w-[80%]'>
                             <View
                                 className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                 <View
@@ -48,7 +53,7 @@ export default function Order() {
                                 </View>
                             </View>
                         </Pressable>
-                        <Pressable onPress={() => createOrder(5)} className='w-[80%]'>
+                        <Pressable onPress={() => getCard(5)} className='w-[80%]'>
                             <View
                                 className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                 <View className='border border-[#1B772E] rounded-2xl p-2 bg-white mr-3'>
@@ -59,7 +64,7 @@ export default function Order() {
                                 </View>
                             </View>
                         </Pressable>
-                        <Pressable onPress={() => createOrder(20)} className='w-[80%]'>
+                        <Pressable onPress={() => getCard(20)} className='w-[80%]'>
                             <View
                                 className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                 <View className='border border-[#1B772E] rounded-2xl p-2 bg-white mr-3'>
