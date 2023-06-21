@@ -20,8 +20,8 @@ const regions = [
 ]
 
 const userTypes = [
-    {key: '1', value: 'Investor', label: 'Investor'},
-    {key: '2', value: 'Participant', label: 'Participant'},
+    {id: '1', value: 'Investor', label: 'Investor'},
+    {id: '2', value: 'Participant', label: 'Participant'},
 ]
 
 
@@ -55,7 +55,7 @@ export default function Information() {
                 </Text>
                 <View style={{zIndex: 2}} className='bg-white'>
                     <DropDownPicker
-                        className='h-16 bg-[#D6F0DB] rounded-2xl border border-[#1B772E]'
+                        className='h-14 bg-[#D6F0DB] rounded-2xl border border-[#1B772E]'
                         textStyle={{fontSize: 20, textAlign: 'center'}}
                         dropDownContainerStyle={{borderColor: '#1B772E', backgroundColor: '#D6F0DB'}}
                         placeholder='Select region'
@@ -68,7 +68,7 @@ export default function Information() {
                 </View>
                 <View style={{zIndex: 1}}>
                     <DropDownPicker
-                        className='h-16 bg-[#D6F0DB] rounded-2xl border border-[#1B772E] z-10 mb-10'
+                        className='h-14 bg-[#D6F0DB] rounded-2xl border border-[#1B772E] z-10 mb-10'
                         textStyle={{fontSize: 20, textAlign: 'center'}}
                         dropDownContainerStyle={{borderColor: '#1B772E', backgroundColor: '#D6F0DB'}}
                         placeholder='Choose role'
