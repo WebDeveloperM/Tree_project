@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from main.models import Plant, Order
-from users.serializers import UserSerializer
-from users.models import User
 
 
 class PlantSerializer(serializers.ModelSerializer):
@@ -13,7 +11,7 @@ class PlantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('status', 'location')
+        fields = ('id', 'status', 'location')
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)

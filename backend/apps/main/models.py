@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import SET_NULL
 from main.queryset.plant import PlantQuerySet
 from main.queryset.order import OrderQuerySet
-from django.db.models import CASCADE, PROTECT
+from django.db.models import PROTECT
 from main.utils.fields import LocationField
 
 
@@ -20,13 +20,13 @@ class BaseModel(models.Model):
 
 
 class Plant(BaseModel):
-    CREATED = "created"
-    IN_ORDER = "in_order"
-    DONE = "done"
+    CREATED = "Created"
+    IN_ORDER = "In_order"
+    DONE = "Done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_ORDER, 'In Order'),
+        (IN_ORDER, 'In_Order'),
         (DONE, 'Done'),
     )
 

@@ -4,6 +4,12 @@ from users.serializers import UserSerializer
 from finance.models import Card, Payment
 
 
+class CardListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ('id', 'number', 'due_date')
+
+
 class CardSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         ret = super().to_representation(instance)
@@ -12,14 +18,7 @@ class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Card
-        fields = ('id', 'number', 'due_date', 'user')
-
-
-class CardListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Card
-        fields = ('id', 'number', 'due_date', 'user')
-
+        fields = ('id', 'number', 'due_date')
 
 class PaymentSerializer(serializers.ModelSerializer):
 

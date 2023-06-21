@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import *
+from finance.views import CardAPIView, CardListView, PaymentCreateListView
 
 urlpatterns = [
-    path('cards/', CardCreateListView.as_view(), name='card'),
-    path('cardslist/', CardListView.as_view(), name='cardlist'),
-    path('payments/', PaymentCreateListView.as_view(), name='payment'),
+    path('cards/', CardAPIView.as_view()),
+    path('cardslist/', CardListView.as_view()),
+    path('payments/', PaymentCreateListView.as_view()),
 ]
