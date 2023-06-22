@@ -18,3 +18,9 @@ class OrderSerializer(serializers.ModelSerializer):
         ret["count"] = instance.count
         ret["amount"] = instance.count * 5
         return ret
+
+
+class OrderProcessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location')
