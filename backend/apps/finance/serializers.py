@@ -31,3 +31,9 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ('id', 'card', 'count', 'amount')
+
+class InvestorOrdersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Payment
+        fields = ('id', 'count', 'amount')

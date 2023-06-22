@@ -2,7 +2,12 @@ from finance.models import Card, Payment
 from main.models import Plant
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from finance.serializers import CardSerializer, PaymentSerializer, CardListSerializer
+from finance.serializers import (
+    CardSerializer,
+    PaymentSerializer,
+    CardListSerializer,
+    InvestorOrdersSerializer
+)
 from django.db.models import Q
 
 
@@ -47,5 +52,6 @@ class PaymentCreateListView(APIView):
 
 class InvestorOrdersApiView(APIView):
     def get(self, request):
-        pass
-
+        payments = Payment.objects.filter(user=request.user)
+        serializer = InvestorOrdersSerializer(payments, many=True)
+        return Response(serializer.data, 200)
