@@ -3,18 +3,20 @@ from main.models import Plant
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from finance.serializers import CardSerializer, PaymentSerializer, CardListSerializer
+from django.db.models import Q
 
 
 class CardAPIView(APIView):
     def post(self, request):
         number = request.data.get("number")
         due_date = request.data.get("due_date")
-        card = Card.objects.filter(number=number).filter(due_date=due_date).first()
+        card = Card.objects.filter(Q(number=number) & Q(due_date=due_date)).first()
+
         if not card:
             card = Card.objects.create(number=number, due_date=due_date, user=request.user)
             serializer = CardSerializer(card)
             return Response(serializer.data, 201)
-        serializer = CardSerializer(request.data)
+        serializer = CardSerializer(card)
         return Response(serializer.data, 200)
 
 
@@ -41,3 +43,9 @@ class PaymentCreateListView(APIView):
 
         serializer = PaymentSerializer(payment)
         return Response(serializer.data, 201)
+
+
+class InvestorOrdersApiView(APIView):
+    def get(self, request):
+        pass
+

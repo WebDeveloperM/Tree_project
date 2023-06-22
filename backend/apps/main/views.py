@@ -1,4 +1,4 @@
-from main.serializers import PlantSerializer, OrderSerializer
+from main.serializers import PlantSerializer, OrderSerializer, OrderProcessSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -25,3 +25,15 @@ class OrderListView(APIView):
         orders = Order.objects.filter(status=Order.CREATED)
         serialiser = OrderSerializer(orders, many=True)
         return Response(serialiser.data, 200)
+
+
+class OrderProcessApiView(APIView):
+    def post(self, request):
+        id = request.data.get("id", None)
+        order = Order.objects.filter(id=id).first()
+        print(order, '8' * 10)
+        if not order:
+            return Response({"error": "Order not found"}, 404)
+        order_list = Order.objects.update(farmer=request.user, status=Order.IN_PROCESS)
+        serializer = OrderProcessSerializer(order_list)
+        return Response(serializer.data, 201)

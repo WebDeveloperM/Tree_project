@@ -12,8 +12,9 @@ class CardListSerializer(serializers.ModelSerializer):
 
 class CardSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
+        print(instance)
         ret = super().to_representation(instance)
-        ret["user"] = UserSerializer(instance.user).data
+        # ret["user"] = UserSerializer(instance.user).data
         return ret
 
     class Meta:

@@ -39,7 +39,7 @@ class RegisterView(APIView):
             return Response(res, 201)
         user = User.objects.filter(phone=phone).first()
         if user:
-            return Response({"message": "Thes user alredy registered"}, 203)
+            return Response(UserSerializer(user).data, 203)
         User.objects.update_or_create(phone=phone, email=phone, username=phone, type=type, region=region)
         fake_data = {
             "message_status": {
