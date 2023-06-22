@@ -43,3 +43,9 @@ class PaymentCreateListView(APIView):
 
         serializer = PaymentSerializer(payment)
         return Response(serializer.data, 201)
+
+
+class InvestorOrdersApiView(APIView):
+    def get(self, request):
+        pass
+
