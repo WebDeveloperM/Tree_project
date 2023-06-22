@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
+    Alert,
     Image, Keyboard,
     Pressable,
     SafeAreaView,
@@ -12,17 +13,12 @@ import axios from "axios";
 import {REGISTER} from "./utils/urls";
 import {useRoute} from "@react-navigation/native";
 import Button from "../components/common/Button";
-// import NumberInput from "../components/NumberInput";
-// import axios from "axios";
-// import {REGISTER} from "./utils/urls"
 
 export default function Authentication() {
     const [phoneNumber, setPhoneNumber] = useState('')
     const [confirm, setConfirm] = useState(false)
     const route = useRoute();
-    const {region, user} = route.params;
-    console.log(region, user)
-
+    const {region, key} = route.params;
     const navigation = useNavigation()
 
 
@@ -37,18 +33,21 @@ export default function Authentication() {
     const confirmNumber = async () => {
         if (phoneNumber.length === 14) {
             setConfirm(true)
-        }
-        try {
-            const registerResponse = await axios.post(REGISTER, {
-                phone: phoneNumber
-            });
-            console.log(registerResponse.data)
-            const dispatch = registerResponse.data.dispatch_id;
-            const phone = registerResponse.data.phone;
-            // await loginUser(phone, dispatch);
-            navigation.navigate('VerificationCode', {confirm})
-        } catch (error) {
-            console.error(error);
+            try {
+                const registerResponse = await axios.post(REGISTER, {
+                    phone: phoneNumber,
+                    region: region,
+                    type: key
+                });
+                console.log(registerResponse.data)
+                const dispatch = registerResponse.data.dispatch_id;
+                const phone = registerResponse.data.phone;
+                navigation.navigate('VerificationCode', {confirm, dispatch, phone})
+            } catch (error) {
+                console.error(error.response.data);
+            }
+        }else{
+            Alert.alert('12ta nomer bulishi kerak')
         }
     };
 

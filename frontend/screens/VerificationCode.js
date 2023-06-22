@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Animated, Easing, Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Image, Modal, StyleSheet, Text, View} from 'react-native';
 import NumberInput from "../components/NumberInput";
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {LOGIN} from "./utils/urls";
 
 
 export default function VerificationCode({confirm}) {
@@ -11,6 +13,8 @@ export default function VerificationCode({confirm}) {
     const [modalVisible, setModalVisible] = useState(false)
     const [open, setOpen] = useState(false)
     const navigation = useNavigation()
+    const route = useRoute();
+    const {dispatch, phone} = route.params;
     let allPassword = `${passwordValue["1"]}${passwordValue["2"]}${passwordValue["3"]}${passwordValue["4"]}`
 
     useEffect(() => {
@@ -31,16 +35,21 @@ export default function VerificationCode({confirm}) {
     }, [timer])
 
 
-    const login = async (phone, dispatch) => {
+    const login = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/v1/users/login/', {
-                phone: 997072820,
-                dispatch_id: 12345678,
+            const response = await axios.post(LOGIN, {
+                phone: phone,
+                dispatch_id: dispatch,
                 code: allPassword
             });
             setModalVisible(true)
             setOpen(true)
-            console.log(response);
+            console.log(response.data.token)
+            await AsyncStorage.setItem("token", response.data.token)
+            setTimeout(() => {
+                navigation.navigate('Home');
+                setModalVisible(false)
+            }, 2000);
         } catch (error) {
             Alert.alert(error.response.data.detail)
         }
