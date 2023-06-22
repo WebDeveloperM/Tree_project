@@ -40,7 +40,7 @@ export default function Authentication() {
                     region: region,
                     type: key
                 });
-                console.log(registerResponse.data)
+                // console.log(registerResponse.data)
                 const dispatch = registerResponse.data.dispatch_id;
                 const phone = registerResponse.data.phone;
                 navigation.navigate('VerificationCode', {confirm, dispatch, phone})
@@ -48,7 +48,7 @@ export default function Authentication() {
                 console.error(error.response.data);
             }
         }else{
-            Alert.alert('12ta nomer bulishi kerak')
+            Alert.alert('Phone number should be 12 numbers')
         }
     };
 

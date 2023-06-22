@@ -49,7 +49,7 @@ export default function VerificationCode({confirm}) {
             // console.log(response.data.user.type)
             await AsyncStorage.setItem("token", response.data.token)
             setTimeout(() => {
-                if(response.data?.user?.type == 1) {
+                if (response.data?.user?.type == 1) {
                     navigation.navigate('Home');
                 } else {
                     navigation.navigate('Jobs');
@@ -79,7 +79,6 @@ export default function VerificationCode({confirm}) {
                         <Image className='w-60 h-60' source={require('../assets/success.png')}/>
                         <Text className='font-bold text-[20px] mb-10 text-[#31B44C]'>Verification Successful!</Text>
                         <Text className='font-semibold text-[15px] mb-2' onPress={() => {
-                            navigation.navigate('Home')
                             setModalVisible(false)
                         }}>Please wait...</Text>
                         <Text className='font-semibold text-[15px] mb-10'>You will be directed to homepage.</Text>
