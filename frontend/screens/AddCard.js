@@ -28,7 +28,7 @@ export default function AddCard() {
                     due_date: cardDate.replace('/', '')
                 }, {headers});
                 console.log(response.data);
-                navigation.navigate('Payment')
+                navigation.navigate('Payment',{id:response.data.id})
             }
         } catch (error) {
             console.error(error.response.data);

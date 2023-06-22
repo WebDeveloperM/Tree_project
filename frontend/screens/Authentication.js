@@ -19,6 +19,7 @@ export default function Authentication() {
     const [confirm, setConfirm] = useState(false)
     const route = useRoute();
     const {region, key} = route.params;
+
     const navigation = useNavigation()
 
 
