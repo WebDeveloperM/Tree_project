@@ -42,14 +42,20 @@ export default function VerificationCode({confirm}) {
                 dispatch_id: dispatch,
                 code: allPassword
             });
-            setModalVisible(true)
-            setOpen(true)
-            console.log(response.data.token)
+            if (!open) {
+                setModalVisible(true)
+                setOpen(true)
+            }
+            // console.log(response.data.user.type)
             await AsyncStorage.setItem("token", response.data.token)
             setTimeout(() => {
-                navigation.navigate('Home');
+                if(response.data?.user?.type == 1) {
+                    navigation.navigate('Home');
+                } else {
+                    navigation.navigate('Jobs');
+                }
                 setModalVisible(false)
-            }, 2000);
+            }, 1000);
         } catch (error) {
             Alert.alert(error.response.data.detail)
         }

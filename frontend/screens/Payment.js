@@ -10,8 +10,9 @@ import {PAYMENTS} from "./utils/urls";
 export default function AddCard() {
     const navigation = useNavigation()
     const route = useRoute();
-    const {numberCard, id} = route?.params
-
+    // const {cardNumber, id} = route?.params
+    const {id} = route?.params
+    console.log(id)
     const createOrder = async () => {
         try {
             const token = await AsyncStorage.getItem('token')
@@ -78,10 +79,8 @@ export default function AddCard() {
                     </View>
                 </View>
             </View>
-            <Pressable onPress={createOrder}>
-                <View className='w-full absolute bottom-10'>
-                    <Button text={'Pay now'}/>
-                </View>
+            <Pressable onPress={createOrder} className='w-full absolute bottom-10'>
+                <Button text={'Pay now'}/>
             </Pressable>
         </View>
     );

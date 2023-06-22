@@ -12,6 +12,7 @@ import Order from "./screens/Order";
 import VerificationCode from "./screens/VerificationCode";
 import AddCard from "./screens/AddCard";
 import Payment from "./screens/Payment";
+import ServiceMap from "./screens/ServiceMap";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
                     <Stack.Screen name="Order" component={Order} options={hideHeader}/>
                     <Stack.Screen name="AddCard" component={AddCard} options={hideHeader}/>
                     <Stack.Screen name="Payment" component={Payment} options={hideHeader}/>
+                    <Stack.Screen name="ServiceMap" component={ServiceMap} options={hideHeader}/>
                 </Stack.Navigator>
             </NavigationContainer>
     );
