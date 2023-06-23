@@ -29,6 +29,7 @@ export default function AddCard() {
             console.error(error.response.data);
         }
     };
+
     return (
         <View className="flex-1 items-center px-6 py-14 bg-white">
             <View className='w-full flex-row justify-center mb-14'>

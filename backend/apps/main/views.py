@@ -1,4 +1,5 @@
-from main.serializers import PlantSerializer, OrderSerializer, OrderProcessSerializer, OrderChangeSerializer
+from main.serializers import PlantSerializer, OrderSerializer, OrderChangeSerializer
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import Plant, Order
@@ -27,14 +28,16 @@ class OrderListView(APIView):
         serialiser = OrderSerializer(orders, many=True)
         return Response(serialiser.data, 200)
 
+
 class OrderStatusView(APIView):
     def patch(self, request):
-        try:
-            order = Order.objects.get(id=request.data.get("id"))
-            print(order)
+        order = Order.objects.get(id=request.data.get("id"))
+        print(order)
+        if order.status == Order.CREATED:
             order.status = Order.IN_PROCESS
             order.farmer = request.user
             order.save()
             return Response({"msg": "OK"}, 200)
-        except Order.DoesNotExist:
-            return Response({'status': 'Order not found'}, 404)
+        return Response({'status': 'Order not found'}, 404)
+
+

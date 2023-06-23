@@ -46,7 +46,12 @@ export default function ServiceMap() {
                     </View>
                 </View>
             </View>
-            <MapView style={styles.map} provider={PROVIDER_GOOGLE} initialRegion={INITIAL_POSITION}>
+            <MapView
+                style={styles.map}
+                provider={PROVIDER_GOOGLE}
+                initialRegion={INITIAL_POSITION}
+                mapType={'satellite'} // standard
+            >
                 <Marker coordinate={{latitude: +location[0], longitude: +location[1]}}/>
             </MapView>
         </View>

@@ -6,8 +6,7 @@ DATABASES = {
         'NAME': 'tree_db',
         'USER': 'postgres',
         'PASSWORD': '20010508',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'PORT': 5432
     }
 }
 
