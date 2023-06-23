@@ -1,4 +1,5 @@
-from main.serializers import PlantSerializer, OrderSerializer, OrderProcessSerializer
+from django.db.models import Q
+from main.serializers import PlantSerializer, OrderSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import Plant, Order
@@ -29,9 +30,23 @@ class OrderListView(APIView):
 
 class OrderProcessApiView(APIView):
     def post(self, request):
-        id = request.data.get("id")
-        instance = get_object_or_404(Order, id=request.data.get("id"))
-        serializer = OrderProcessSerializer(instance, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(id=id, user=request.user)
-        return Response(serializer.data)
+        id = request.data.get("id", None)
+        print(id)
+        # order =
+
+        return  Response({"msg": "Ok"})
+
+        # order = Order.objects.filter(Q(id=request.data.get("id")) & Q(status=Order.CREATED) & Q(farmer=None)).first()
+        # serializer = OrderProcessSerializer(instance, data=request.data)
+        # serializer.is_valid(raise_exception=True)
+        # serializer.save(id=request.data.get("id"), user=request.user)
+        # return Response(serializer.data)
+
+# class OrderProcessApiView(APIView):
+#     def post(self, request):
+#         # instance = get_object_or_404(Order, id=request.data.get("id"))
+#         instance = Order.objects.filter(Q(id=request.data.get("id")) & Q(status=Order.CREATED) & Q(farmer=None)).first()
+#         serializer = OrderProcessSerializer(instance, data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save(id=request.data.get("id"), user=request.user)
+#         return Response(serializer.data)

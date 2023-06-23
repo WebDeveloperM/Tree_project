@@ -32,7 +32,7 @@ class CardListView(APIView):
         return Response(serialiser.data, 200)
 
 
-class PaymentCreateListView(APIView):
+class PaymentCreateView(APIView):
 
     def post(self, request):
         PLANT_PRICE = 5  # plant price = 5 $
