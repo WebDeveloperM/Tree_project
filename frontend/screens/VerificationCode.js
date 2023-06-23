@@ -62,7 +62,7 @@ export default function VerificationCode({confirm}) {
     };
 
     return (
-        <View className="flex-1 items-center">
+        <View className="flex-1 items-center bg-white">
             <Modal
                 className='w-full h-full'
                 animationType="fade"
