@@ -13,6 +13,7 @@ import VerificationCode from "./screens/VerificationCode";
 import AddCard from "./screens/AddCard";
 import Payment from "./screens/Payment";
 import ServiceMap from "./screens/ServiceMap";
+import ServiceCamera from "./screens/ServiceCamera";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
                     <Stack.Screen name="AddCard" component={AddCard} options={hideHeader}/>
                     <Stack.Screen name="Payment" component={Payment} options={hideHeader}/>
                     <Stack.Screen name="ServiceMap" component={ServiceMap} options={hideHeader}/>
+                    <Stack.Screen name="ServiceCamera" component={ServiceCamera} options={hideHeader}/>
                 </Stack.Navigator>
             </NavigationContainer>
     );

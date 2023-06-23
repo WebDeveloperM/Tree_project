@@ -40,7 +40,7 @@ export default function Jobs() {
                     <Text className='text-[30px] font-semibold my-8 '>Jobs</Text>
                     <View className='items-center'>
                         {jobs && jobs.map(job => (
-                            <Pressable key={job.id} onPress={() => navigation.navigate('ServiceMap', {location: job.location})}>
+                            <Pressable key={job.id} onPress={() => navigation.navigate('ServiceMap', {job})}>
                                 <View
                                     className='w-[90%] mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                     <View
