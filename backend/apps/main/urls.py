@@ -1,15 +1,10 @@
 from django.urls import path
-from main.views import PlantCreateListView, OrderCreateListView, AllJobsAPIView, OrderListView
-
-urlpatterns = [
-
-    path('plant/',PlantCreateListView.as_view(),name='plant'),
-    path('order/',OrderListView.as_view(),name='order'),
+from django.urls import path
  
 
-    path('plant/', PlantCreateListView.as_view(), name='plant'),
-    path('order/', OrderCreateListView.as_view(), name='order'),
-    path('all-jobs/', AllJobsAPIView.as_view(), name='all-jobs'),
-
-
+from main.views import PlantCreateListView, OrderListView, OrderStatusView
+urlpatterns = [
+    path('plant/', PlantCreateListView.as_view()),
+    path('order/', OrderListView.as_view()),
+    path('order-change/', OrderStatusView.as_view()),
 ]

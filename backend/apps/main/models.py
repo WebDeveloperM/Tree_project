@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import SET_NULL
 from main.queryset.plant import PlantQuerySet
 from main.queryset.order import OrderQuerySet
-from django.db.models import CASCADE, PROTECT
+from django.db.models import PROTECT
 from main.utils.fields import LocationField
 
 
@@ -20,13 +20,13 @@ class BaseModel(models.Model):
 
 
 class Plant(BaseModel):
-    CREATED = "created"
-    IN_ORDER = "in_order"
-    DONE = "done"
+    CREATED = "Created"
+    IN_ORDER = "In_order"
+    DONE = "Done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_ORDER, 'In Order'),
+        (IN_ORDER, 'In_Order'),
         (DONE, 'Done'),
     )
 
@@ -44,20 +44,19 @@ class Plant(BaseModel):
         db_table = 'main_plants'
 
 
+
 class Order(BaseModel):
-    CREATED = "created"
-    IN_PROCESS = "in_process"
-    DONE = "done"
+    CREATED = "Created"
+    IN_PROCESS = "In_process"
+    DONE = "Done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_PROCESS, 'In process'),
+        (IN_PROCESS, 'In_process'),
         (DONE, 'Done'),
     )
 
     farmer = models.ForeignKey('users.User', PROTECT, null=True, blank=True)
-    latitude = models.FloatField()  # x
-    longitude = models.FloatField()  # y
     location = LocationField(blank=True, max_length=255)
     count = models.IntegerField()
     status = models.CharField(max_length=255, choices=STATUS, default=CREATED)

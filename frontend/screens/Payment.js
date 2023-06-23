@@ -1,12 +1,34 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
+import {useNavigation, useRoute} from "@react-navigation/native";
 import Button from "../components/common/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import {PAYMENTS} from "./utils/urls";
 
 
 export default function AddCard() {
-
     const navigation = useNavigation()
+    const route = useRoute();
+    // const {cardNumber, id} = route?.params
+    const {id} = route?.params
+    console.log(id)
+    const createOrder = async () => {
+        try {
+            const token = await AsyncStorage.getItem('token')
+            const headers = {
+                Authorization: `Token ${token}`,
+                'Content-Type': 'application/json',
+            };
+            const response = await axios.post(PAYMENTS, {
+                count: id
+            }, {headers});
+            console.log(response.data);
+            navigation.navigate('Home')
+        } catch (error) {
+            console.error(error.response.data);
+        }
+    };
     return (
         <View className="flex-1 items-center px-6 py-14 bg-white">
             <View className='w-full flex-row justify-center mb-14'>
@@ -30,14 +52,14 @@ export default function AddCard() {
                     </View>
                     <View className='items-end'>
                         <Text className='font-semibold text-[12px] text-[#fff]/70 mb-1'>Expires on</Text>
-                        <Text className='font-semibold text-[14px] text-white'>09/10</Text>
+                        <Text className='font-semibold text-[14px] text-white'>12/34</Text>
                     </View>
                 </View>
             </View>
             <View className='w-full p-6 my-10'>
                 <Text className='font-semibold text-[15px]'>Upcoming dues</Text>
                 <View className='flex-row mt-8 justify-between'>
-                   <View>
+                    <View>
                         <Text className='font-semibold text-[12px] text-black/70 mb-1'>Total Due Amount</Text>
                         <Text className='font-semibold text-[14px] text-black'>15$</Text>
                     </View>
@@ -47,7 +69,7 @@ export default function AddCard() {
                     </View>
                 </View>
                 <View className='flex-row mt-8 justify-between'>
-                   <View>
+                    <View>
                         <Text className='font-semibold text-[12px] text-black/70 mb-1'>Total Due Amount</Text>
                         <Text className='font-semibold text-[14px] text-black'>15$</Text>
                     </View>
@@ -57,9 +79,9 @@ export default function AddCard() {
                     </View>
                 </View>
             </View>
-            <View className='w-full absolute bottom-10'>
+            <Pressable onPress={createOrder} className='w-full absolute bottom-10'>
                 <Button text={'Pay now'}/>
-            </View>
+            </Pressable>
         </View>
     );
 }

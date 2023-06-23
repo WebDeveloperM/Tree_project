@@ -11,7 +11,6 @@ DATABASES = {
     }
 }
 
-MAPS_API_KEY = "AIzaSyBI8bYXK0GzGBDEc_SCdHQ6RLPLIGDzB1Q"
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = ''

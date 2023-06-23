@@ -1,33 +1,50 @@
 from rest_framework import serializers
 from main.models import Plant, Order
 
+from users.serializers import UserSerializer
+
 
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
         fields = ('id', 'order', 'image', "payment_id")
 
+
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('farmer', 'latitude', 'longitude', 'status')
-    # def create(self, validated_data):
-    #     plants_data = validated_data.pop('plants')
-    #     order = Order.objects.create(**validated_data)
-    #     for plant_data in plants_data:
-    #         Plant.objects.create(order=order, **plant_data)
-    #     return order.count() if order.objects else None
-    # def get_count(self, obj, data):
-    #     user = self.context['request'].user
-    #     data['user'] = user
-    #
-    #     Plant.objects.bulk_create(
-    #         Plant(type='oak', investor=user, count=)
-    #     )
-    #     return obj.plant.count() if obj.plant else None
+        fields = ('id', 'status', 'location')
 
-    # def get_plant(self, obj):
-    #     return obj.plant
-    # if obj.plant:
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret["count"] = instance.count
+        ret["amount"] = instance.count * 5
+        return ret
 
-    # Plant.objects.bu
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location')
+
+class OrderChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location')
+
+
+
+class OrderProcessSerializer(serializers.ModelSerializer):
+    def update(self, instance, data):
+        instance = super().update(instance, data)
+        Order.objects.filter(id=data.get("id")).update(status=Order.IN_PROCESS, farmer=data.get("user"))
+        return instance
+
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location')
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret["user"] = UserSerializer(instance.user).data
+        return ret
