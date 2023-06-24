@@ -20,6 +20,7 @@ class AuthorMixin:
 class PlantAdmin(AuthorMixin, admin.ModelAdmin):
     list_display = ('type', 'farmer', 'investor')
     list_filter = ('status', 'payment')
+    fields = ('order', 'investor', 'farmer', 'image', 'payment', 'status')
 
 
 @admin.register(Order)

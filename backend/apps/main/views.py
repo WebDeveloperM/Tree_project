@@ -1,5 +1,5 @@
 from django.db.models import Q
-from main.serializers import PlantSerializer, OrderSerializer
+from main.serializers import PlantSerializer, OrderSerializer, OrderDoneSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import Plant, Order
@@ -32,10 +32,35 @@ class OrderProcessApiView(APIView):
     def post(self, request):
         id = request.data.get("id", None)
         print(id)
-        # order =
+        # order = Order.o
 
-        return  Response({"msg": "Ok"})
+        return Response({"msg": "Ok"})
 
+
+class AllOrders(APIView):
+    def get(self, request):
+        orders = Order.objects.all().order_by("-id")
+        return Response(OrderSerializer(orders, many=True).data)
+
+
+class AllPlants(APIView):
+    def get(self, request):
+        # plants = Plant.objects.all()
+        id = request.data.get('id')
+        plant = Plant.objects.filter(id=id).first()
+        print(plant, 444444444444)
+        return Response({"msg": "Ok"})
+
+
+class OrderDoneApiView(APIView):
+    def post(self, request):
+        order_id = request.data.get("order_id", None)
+        instance = Order.objects.filter(Q(id=order_id) & Q(status=Order.IN_PROCESS)).first()
+        serializer = OrderDoneSerializer(instance, data=request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(data=request.data)
+
+        return Response(serializer.data, 201)
         # order = Order.objects.filter(Q(id=request.data.get("id")) & Q(status=Order.CREATED) & Q(farmer=None)).first()
         # serializer = OrderProcessSerializer(instance, data=request.data)
         # serializer.is_valid(raise_exception=True)
