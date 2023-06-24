@@ -40,7 +40,7 @@ export default function Authentication() {
                     region: region,
                     type: key
                 });
-                // console.log(registerResponse.data)
+                console.log(registerResponse.data)
                 const dispatch = registerResponse.data.dispatch_id;
                 const phone = registerResponse.data.phone;
                 navigation.navigate('VerificationCode', {confirm, dispatch, phone})
