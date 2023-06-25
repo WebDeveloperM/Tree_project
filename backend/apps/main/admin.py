@@ -26,7 +26,7 @@ class PlantAdmin(AuthorMixin, admin.ModelAdmin):
 class OrderAdmin(AuthorMixin, admin.ModelAdmin):
     form = OrderForm
     list_display = ('status', 'count', 'farmer')
-    list_filter = ('status', 'count', 'farmer' )
+    list_filter = ('status', 'count', 'farmer')
     fields = ('latitude', 'longitude', 'count')
 
     def save_model(self, request, obj, form, change):

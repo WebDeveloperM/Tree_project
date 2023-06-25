@@ -42,6 +42,9 @@ class Plant(BaseModel):
     class Meta:
         db_table = 'main_plants'
 
+    def __str__(self):
+        return self.type
+
 
 class Order(BaseModel):
     CREATED = "created"
@@ -64,3 +67,6 @@ class Order(BaseModel):
 
     class Meta:
         db_table = 'main_orders'
+
+    def __str__(self):
+        return self.farmer
