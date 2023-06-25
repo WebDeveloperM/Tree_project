@@ -2,12 +2,15 @@ from main.serializers import (
     PlantSerializer,
     OrderSerializer,
     OrderChangeSerializer,
-    OrderDoneSerializer
+    OrderDoneSerializer,
+    FullOrderSerializer
+
 )
 from django.db.models import Q
 from rest_framework.views import APIView
 from main.models import Plant, Order
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 
 class PlantCreateListView(APIView):
@@ -61,6 +64,23 @@ class FarmerOrderApiView(APIView):
         orders = Order.objects.filter(farmer=request.user)
         serializers = OrderSerializer(orders, many=True)
         return Response(serializers.data)
+
+
+class LastOrdersApiView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request):
+        orders = Order.objects.filter(status=Order.DONE).order_by('-updated_at')[:10]
+        print(orders)
+        return Response(OrderSerializer(orders, many=True).data)
+
+
+class FullOrderDataApiView(APIView):
+    def get(self, request):
+        id = request.data.get("order_id", None)
+        order = Order.objects.filter(id=id).first()
+        serializers = FullOrderSerializer(order)
+        return Response(serializers.data, 200)
 
 
 class AllPlant(APIView):

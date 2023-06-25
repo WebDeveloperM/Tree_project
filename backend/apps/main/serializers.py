@@ -26,7 +26,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderDoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'location' )
+        fields = ('id', 'location')
 
     def update(self, instance, data):
         user = self.context['user']
@@ -53,3 +53,18 @@ class OrderChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'status', 'location')
+
+
+class FullOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location', 'address')
+
+    def to_representation(self, instance):
+        plants = Plant.objects.filter(order__id = instance.id)
+        print(plants)
+        ret = super().to_representation(instance)
+        ret["count"] = instance.count
+        ret["amount"] = instance.count * 5
+        ret["plants"] = PlantSerializer(plants, many=True).data
+        return ret
