@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'finance',
     'users',
 
+
 ]
 
 MIDDLEWARE = [
@@ -169,4 +170,4 @@ try:
 except ImportError:
     pass
 
-MAPS_API_KEY = 'AIzaSyBI8bYXK0GzGBDEc_SCdHQ6RLPLIGDzB1Q'
+MAPS_API_KEY = "AIzaSyBI8bYXK0GzGBDEc_SCdHQ6RLPLIGDzB1Q"

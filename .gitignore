@@ -7,6 +7,7 @@ backups
 .vscode
 .history
 backend/venv
+.tree
 
 __pycache__/
 *.pyc

@@ -14,7 +14,7 @@ class PlantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'status', 'location')
+        fields = ('id', 'status', 'location', 'address')
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)

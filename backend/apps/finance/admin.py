@@ -12,11 +12,13 @@ from main.models import Plant
 @admin.register(Card)
 class CardAdmin(AuthorMixin, admin.ModelAdmin):
     list_display = ('user', 'number', 'due_date')
+    fields = ('number', 'due_date', 'user')
 
 
 @admin.register(Payment)
 class PaymentAdmin(AuthorMixin, admin.ModelAdmin):
     list_display = ('user', 'count', 'amount')
+    fields = ('user', 'card', 'count', 'amount')
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)

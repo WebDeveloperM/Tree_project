@@ -9,7 +9,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Jobs() {
     const [jobs, setJobs] = useState([])
+
     const navigation = useNavigation()
+
+    useEffect(() => {
+        getJobs()
+    }, [])
+
 
     const getJobs = async () => {
         const token = await AsyncStorage.getItem('token')
@@ -23,14 +29,12 @@ export default function Jobs() {
                 },
             };
             const response = await axios.request(config)
+            console.log(response.data)
             setJobs(response.data)
         } catch (error) {
             console.error(error, "error")
         }
     }
-    useEffect(() => {
-        getJobs()
-    }, [])
 
     return (
         <SafeAreaView className="flex-1 bg-white">

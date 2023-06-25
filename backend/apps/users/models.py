@@ -22,6 +22,8 @@ class User(AbstractUser):
         db_table = 'users_user'
         app_label = 'users'
 
+    def __str__(self):
+        return f'{self.type}, {self.phone}'
 
 class SmsCode(BaseModel):
     dispatch_id = models.CharField(max_length=8)
