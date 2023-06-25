@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import Button from "../components/common/Button";
@@ -9,10 +9,9 @@ import {PAYMENTS} from "./utils/urls";
 
 export default function AddCard() {
     const navigation = useNavigation()
-    const route = useRoute();
-    // const {cardNumber, id} = route?.params
-    const {id} = route?.params
-    console.log(id)
+    const [count, setCount] = useState(null)
+    const route = useRoute()
+    const {cardDate, cardNumber} = route.params
     const createOrder = async () => {
         try {
             const token = await AsyncStorage.getItem('token')
@@ -21,7 +20,7 @@ export default function AddCard() {
                 'Content-Type': 'application/json',
             };
             const response = await axios.post(PAYMENTS, {
-                count: id
+                count: Number(count)
             }, {headers});
             console.log(response.data);
             navigation.navigate('Home')
@@ -29,6 +28,9 @@ export default function AddCard() {
             console.error(error.response.data);
         }
     };
+
+    AsyncStorage.getItem("order").then(r => setCount(r))
+
 
     return (
         <View className="flex-1 items-center px-6 py-14 bg-white">
@@ -41,10 +43,10 @@ export default function AddCard() {
             <View className='w-full bg-[#31B44C] h-56 rounded-2xl py-4 px-6 justify-between'>
                 <Image className='w-20 h-10' source={require('../assets/visa.png')}/>
                 <View className='flex-row w-[80%] justify-between'>
-                    <Text className='text-white text-[18px] font-semibold'>1234</Text>
+                    <Text className='text-white text-[18px] font-semibold'>{String(cardNumber).slice(0, 4)}</Text>
                     <Text className='text-white text-[18px] font-semibold'>• • • •</Text>
                     <Text className='text-white text-[18px] font-semibold'>• • • •</Text>
-                    <Text className='text-white text-[18px] font-semibold'>5089</Text>
+                    <Text className='text-white text-[18px] font-semibold'>{String(cardNumber).slice(-4)}</Text>
                 </View>
                 <View className='flex-row justify-between w-[90%]'>
                     <View>
@@ -53,7 +55,8 @@ export default function AddCard() {
                     </View>
                     <View className='items-end'>
                         <Text className='font-semibold text-[12px] text-[#fff]/70 mb-1'>Expires on</Text>
-                        <Text className='font-semibold text-[14px] text-white'>12/34</Text>
+                        <Text
+                            className='font-semibold text-[14px] text-white'>{String(cardDate).slice(0, 2)}/{String(cardDate).slice(2)}</Text>
                     </View>
                 </View>
             </View>
