@@ -1,13 +1,13 @@
-from main.serializers import PlantSerializer, OrderSerializer, OrderChangeSerializer
+from main.serializers import (
+    PlantSerializer,
+    OrderSerializer,
+    OrderChangeSerializer,
+    OrderDoneSerializer
+)
 from django.db.models import Q
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from main.models import Plant, Order
 from rest_framework.response import Response
-from rest_framework import generics
-from rest_framework import status
-from rest_framework.generics import get_object_or_404
-
 
 
 class PlantCreateListView(APIView):
@@ -23,7 +23,8 @@ class PlantCreateListView(APIView):
             "total": base.count(),
             "results": PlantSerializer(done, many=True).data
         }, 200)
-    
+
+
 class OrderListView(APIView):
     def get(self, request):
         orders = Order.objects.filter(status=Order.CREATED)
@@ -41,31 +42,27 @@ class OrderStatusView(APIView):
             order.save()
             return Response({"msg": "OK"}, 200)
         return Response({'status': 'Order not found'}, 404)
-    
 
 
-# class OrderDoneView(APIView):
-#     def post(self, request):
-#         order = Order.objects.get(id=request.data.get("id"))
-        # try:
-        #     order = Order.objects.get(pk=pk)
-        # except Order.DoesNotExist:
-        #     return Response(status=status.HTTP_404_NOT_FOUND)
-
-        # if order.status != Order.IN_PROCESS:
-        #     return Response({'error': 'Order not in process'},
-        #                     status=status.HTTP_400_BAD_REQUEST)
-
-        # order.status = Order.DONE
-        # order.save()
-
-        # return Response({'status': 'Order done'},
-        #                 status=status.HTTP_200_OK)
-
-    
-    
-    
+class OrderDoneApiView(APIView):
+    def post(self, request):
+        order_id = request.data.get("order_id", None)
+        instance = Order.objects.filter(Q(id=order_id) & Q(status=Order.IN_PROCESS)).first()
+        serializer = OrderDoneSerializer(instance, data=request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(data=request.data)
+        return Response(serializer.data, 201)
 
 
+class FarmerOrderApiView(APIView):
+    def get(self, request):
+        orders = Order.objects.filter(farmer=request.user)
+        serializers = OrderSerializer(orders, many=True)
+        return Response(serializers.data)
 
 
+class AllPlant(APIView):
+    def get(self, request):
+        id = request.data.get("id")
+        plants = Plant.objects.filter(Q(order__id=id))
+        return Response(PlantSerializer(plants, many=True).data)

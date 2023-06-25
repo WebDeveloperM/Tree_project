@@ -23,47 +23,35 @@ class OrderSerializer(serializers.ModelSerializer):
         return ret
 
 
-class OrderChangeSerializer(serializers.ModelSerializer):
+class OrderDoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'status', 'location')
 
+    def update(self, instance, data):
+        user = self.context['user']
+        print(user, 3333333333333)
+        order_id = data['data']['order_id']
+        plant_id = data['data']['plant_id']
+        image = data['data']['image']
+        if plant_id and order_id:
+            Plant.objects.filter(Q(id=plant_id)).update(status=Plant.DONE, image=image, farmer=user)
+            plants_count = Plant.objects.filter(Q(order__id=order_id) & Q(status=Plant.DONE)).count()
+            order_obj_count = Order.objects.filter(id=order_id).first().count
+
+        if plants_count == order_obj_count:
+            Order.objects.filter(Q(id=order_id) & Q(status=Order.IN_PROCESS)).update(status=Order.DONE)
+
+        return instance
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret["count"] = instance.count
+        ret["amount"] = instance.count * 5
+        return ret
 
 
-
-
-# class OrderProcessSerializer(serializers.ModelSerializer):
-#     def update(self, instance, data):
-#         instance = super().update(instance, data)
-#         Order.objects.filter(id=data.get("id")).update(status=Order.IN_PROCESS, farmer=data.get("user"))
-#         return instance
-
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'status', 'location')
-
-#     def to_representation(self, instance):
-#         ret = super().to_representation(instance)
-#         ret["user"] = UserSerializer(instance.user).data
-#         return ret
-
-# class OrderProcessSerializer(serializers.ModelSerializer):
-#     def update(self, instance, data):
-#         Order.objects.filter(Q(id=data.get("id")) & Q(status=Order.CREATED) & Q(farmer=None)).update(
-#             status=Order.IN_PROCESS,
-#             farmer=data.get("user"))
-#         instance = super().update(instance, data)
-#         return instance
-#
-#     def to_representation(self, instance):
-#         ret = super().to_representation(instance)
-#         ret["farmer"] = UserSerializer(instance.farmer).data
-#         return ret
-#
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'status', 'location', 'farmer')
-
-
-
-
+class OrderChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location')
