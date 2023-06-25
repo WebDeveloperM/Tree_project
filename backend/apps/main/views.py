@@ -34,7 +34,9 @@ class OrderListView(APIView):
         serialiser = OrderSerializer(orders, many=True)
         return Response(serialiser.data, 200)
 
-
+class OrderListPercentApiView(APIView):
+    def get(self, request):
+        orders = Order.objects.filter()
 class OrderStatusView(APIView):
     def patch(self, request):
         order = Order.objects.get(id=request.data.get("id"))
