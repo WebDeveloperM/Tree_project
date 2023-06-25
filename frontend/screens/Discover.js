@@ -78,7 +78,7 @@ export default function Discover() {
                 onViewableItemsChanged={viewableItemChanged}
                 viewabilityConfig={viewConfig}
             />
-            <View className='flex items-center justify-center mb-6'>
+            <View className='flex items-center justify-center mb-10'>
                 <Paginator
                     data={slides}
                     scrollX={scrollX}

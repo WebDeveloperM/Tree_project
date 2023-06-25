@@ -5,7 +5,7 @@ export default function Paginator({data, scrollX}) {
     const {width} = useWindowDimensions()
 
     return (
-        <View className="flex-row h-6">
+        <View className="flex-row h-10">
             {data && data.map((_, i) => {
                 const inputRange = [(i - 1) * width, i * width, (i + 1) * width]
                 const dotWidth = scrollX.interpolate({

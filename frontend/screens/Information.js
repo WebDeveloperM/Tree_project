@@ -1,5 +1,5 @@
-import React from "react";
-import {Image, Pressable, SafeAreaView, Text, View} from 'react-native';
+import React, {useState} from "react";
+import {Alert, Image, Pressable, SafeAreaView, Text, View} from 'react-native';
 import DropDownPicker from "react-native-dropdown-picker";
 import {useNavigation} from "@react-navigation/native";
 
@@ -20,8 +20,8 @@ const regions = [
 ]
 
 const userTypes = [
-    {key: '1', value: 'Investor', label: 'Investor'},
-    {key: '2', value: 'Participant', label: 'Participant'},
+    {key: 1, value: 'Investor', label: 'Investor'},
+    {key: 2, value: 'Participant', label: 'Participant'},
 ]
 
 
@@ -30,13 +30,23 @@ export default function Information() {
     const [regionOpen, setRegionOpen] = React.useState(false);
     const [user, setUser] = React.useState(null)
     const [userOpen, setUserOpen] = React.useState(false);
-
     const navigation = useNavigation()
+
+    const handleContinue = () => {
+        if (!region || !user) {
+            Alert.alert("Please select a region and user type!");
+            return;
+        }
+
+        const {key} = userTypes.find(type => type.value === user)
+        navigation.navigate('Authentication', {region, key});
+    };
+
 
     return (
         <SafeAreaView className='flex-1 bg-white'>
             <View className="flex-1 items-center justify-evenly w-[80%] mx-auto">
-                <Image className='mt-12 mb-6' source={require('../assets/register.png')}/>
+                <Image className='mt-8 mb-4' source={require('../assets/register.png')}/>
                 <Text className='text-[35px] font-bold'>Hello there👋</Text>
                 <Text className='text-[15px] font-semibold leading-5'>
                     Please enter your phone number. You will
@@ -45,7 +55,7 @@ export default function Information() {
                 </Text>
                 <View style={{zIndex: 2}} className='bg-white'>
                     <DropDownPicker
-                        className='h-16 bg-[#D6F0DB] rounded-2xl border border-[#1B772E]'
+                        className='h-14 bg-[#D6F0DB] rounded-2xl border border-[#1B772E]'
                         textStyle={{fontSize: 20, textAlign: 'center'}}
                         dropDownContainerStyle={{borderColor: '#1B772E', backgroundColor: '#D6F0DB'}}
                         placeholder='Select region'
@@ -58,7 +68,7 @@ export default function Information() {
                 </View>
                 <View style={{zIndex: 1}}>
                     <DropDownPicker
-                        className='h-16 bg-[#D6F0DB] rounded-2xl border border-[#1B772E] z-10'
+                        className='h-14 bg-[#D6F0DB] rounded-2xl border border-[#1B772E] z-10 mb-10'
                         textStyle={{fontSize: 20, textAlign: 'center'}}
                         dropDownContainerStyle={{borderColor: '#1B772E', backgroundColor: '#D6F0DB'}}
                         placeholder='Choose role'
@@ -69,6 +79,7 @@ export default function Information() {
                         setValue={setUser}
                     />
                 </View>
+
                 <View className='h-28 pt-12 w-52 flex-row justify-between'>
                     <Pressable>
                         <View
@@ -76,7 +87,7 @@ export default function Information() {
                             <Image source={require('../assets/location-icon.png')}/>
                         </View>
                     </Pressable>
-                    <Pressable onPress={()=> navigation.navigate('Authentication')}>
+                    <Pressable onPress={handleContinue}>
                         <View
                             className='w-16 h-16 bg-[#D6F0DB] rounded-xl border border-[#1B772E] items-center justify-center'>
                             <Image source={require('../assets/arrow-right-icon.png')}/>

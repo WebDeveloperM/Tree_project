@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert, Image, Pressable, Text, View} from 'react-native';
-import {useNavigation, useRoute} from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 import MaskInput from "react-native-mask-input";
 import Button from "../components/common/Button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,14 +22,13 @@ export default function AddCard() {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json',
                 };
+                console.log(cardDate.replace('/', ''))
                 const response = await axios.post(ADD_CARD, {
                     number: cardNumber.replace(/\s+/g, ''),
                     due_date: cardDate.replace('/', '')
                 }, {headers});
                 console.log(response.data);
-                const numberCard = response.data.number
-                const dataCard = response.data.due_date
-                navigation.navigate('Payment', {numberCard, dataCard})
+                navigation.navigate('Payment',{id:response.data.id})
             }
         } catch (error) {
             console.error(error.response.data);

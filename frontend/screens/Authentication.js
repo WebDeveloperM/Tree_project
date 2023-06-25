@@ -30,6 +30,7 @@ export default function Authentication() {
         }
     }, [phoneNumber])
 
+
     const confirmNumber = async () => {
         if (phoneNumber.length === 14) {
             setConfirm(true)
@@ -44,7 +45,7 @@ export default function Authentication() {
                 const phone = registerResponse.data.phone;
                 navigation.navigate('VerificationCode', {confirm, dispatch, phone})
             } catch (error) {
-                console.error(error.response);
+                console.error(error.response.data);
             }
         }else{
             Alert.alert('Phone number should be 12 numbers')

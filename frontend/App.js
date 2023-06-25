@@ -16,7 +16,6 @@ import ServiceMap from "./screens/ServiceMap";
 import ServiceCamera from "./screens/ServiceCamera";
 import CompleteJob from "./screens/CompleteJob";
 import CompletePhotos from "./screens/CompletePhotos";
-import CameraPhoto from "./screens/CameraPhoto";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +39,6 @@ export default function App() {
                     <Stack.Screen name="ServiceCamera" component={ServiceCamera} options={hideHeader}/>
                     <Stack.Screen name="CompleteJob" component={CompleteJob} options={hideHeader}/>
                     <Stack.Screen name="CompletePhotos" component={CompletePhotos} options={hideHeader}/>
-                    <Stack.Screen name="CameraPhoto" component={CameraPhoto} options={hideHeader}/>
                 </Stack.Navigator>
             </NavigationContainer>
     );

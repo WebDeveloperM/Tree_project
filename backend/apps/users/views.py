@@ -1,12 +1,10 @@
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny
 from users.models import User, SmsCode
 from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
-from rest_framework import status
 
 from django.conf import settings
 # from users.utils.send_code import send_code
@@ -24,7 +22,7 @@ class ApiInfo(APIView):
             "User Info": 'user-info',
             'Logout': 'logout'
         }]
-        return Response(urlRoots)
+        return Response(urlRoots, 200)
 
 
 class RegisterView(APIView):
@@ -32,16 +30,17 @@ class RegisterView(APIView):
 
     def post(self, request):
         phone = request.data.get('phone')
+        type = request.data.get('type')
+        region = request.data.get('region')
 
         if settings.SMS_CODE_ACTIVE:
             # res = send_code(request.data['phone'])
             res = {"msg": "ok"}
             return Response(res, 201)
-
-            # WITHOUT ESKIZ API DEFAULT CODE is 0000, but worked when already have fixtures
-
-        # SmsCode.objects.create(dispatch_id="12345678", code="1111", user=1)
-        User.objects.update_or_create(phone=phone, email=phone, username=phone)
+        user = User.objects.filter(phone=phone).first()
+        if user:
+            return Response(UserSerializer(user).data, 203)
+        User.objects.update_or_create(phone=phone, email=phone, username=phone, type=type, region=region)
         fake_data = {
             "message_status": {
                 "status": "success",
@@ -74,16 +73,16 @@ class LoginView(APIView):
         return Response({
             'user': UserSerializer(user).data,
             'token': token.key,
-        })
+        }, 201)
 
 
 class UserView(APIView):
-    def post(self, request):
+    def get(self, request):
         serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        return Response(serializer.data, 200)
 
 
 class LogoutView(APIView):
     def get(self, request):
-        request.user.auth_token.delete()
-        return Response({"massage": "Logout successfully !!!!"}, status=status.HTTP_200_OK)
+        request.user.delete()
+        return Response({"massage": "Logout successfully !!!!"}, 200)

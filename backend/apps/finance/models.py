@@ -11,9 +11,6 @@ class Card(BaseModel):
     class Meta:
         db_table = 'finance_cards'
 
-    def __str__(self):
-        return f'{self.number} - {self.user}'
-
 
 class Payment(BaseModel):
     user = models.ForeignKey('users.User', PROTECT)
@@ -23,6 +20,3 @@ class Payment(BaseModel):
 
     class Meta:
         db_table = 'finance_payments'
-
-    def __str__(self):
-        return f'{self.user} - {self.card}'

@@ -3,17 +3,12 @@ from users.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret["dispatch_id"] = 12345678
+        return ret
+
     class Meta:
         model = User
-        fields = ('id', 'phone')
-
-    # def create(self, validated_data):
-    #     phone = validated_data.get('phone', None)
-    #
-    #     print(phone in int, "6"*88)
-    #     if len(phone) == 12:
-    #
-    #         instance = self.Meta.model(phone=phone, code=code, **validated_data)
-    #         instance.save()
-    #         return instance
-    #     raise ValueError("The phone number must be at least 12 characters long")
+        fields = ('id', 'phone', 'type', 'region')
