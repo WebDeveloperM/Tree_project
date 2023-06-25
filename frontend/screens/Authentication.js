@@ -13,6 +13,7 @@ import axios from "axios";
 import {REGISTER} from "./utils/urls";
 import {useRoute} from "@react-navigation/native";
 import Button from "../components/common/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Authentication() {
     const [phoneNumber, setPhoneNumber] = useState('')
@@ -35,6 +36,9 @@ export default function Authentication() {
         if (phoneNumber.length === 14) {
             setConfirm(true)
             try {
+                const jsonValue = JSON.stringify(key);
+                await AsyncStorage.setItem('user-type', jsonValue);
+
                 const registerResponse = await axios.post(REGISTER, {
                     phone: phoneNumber,
                     region: region,
@@ -47,7 +51,7 @@ export default function Authentication() {
             } catch (error) {
                 console.error(error.response.data);
             }
-        }else{
+        } else {
             Alert.alert('Phone number should be 12 numbers')
         }
     };

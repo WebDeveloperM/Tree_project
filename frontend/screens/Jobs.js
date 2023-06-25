@@ -36,11 +36,25 @@ export default function Jobs() {
         }
     }
 
+    const logOut = async () => {
+        try {
+            await AsyncStorage.multiRemove(['token', 'user-type'])
+            navigation.replace('Information')
+        } catch (error) {
+            console.log(error, 'error')
+        }
+    }
+
     return (
         <SafeAreaView className="flex-1 bg-white">
             <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
                 <View className="w-full h-full items-center">
+                    <Pressable
+                        onPress={logOut}
+                        className='absolute top-4 left-6 border border-[#1B772E] rounded-xl py-2 px-4'>
+                        <Text className='text-[16px] text-[#1B772E] font-semibold'>Log out</Text>
+                    </Pressable>
                     <Text className='text-[30px] font-semibold my-8 '>Jobs</Text>
                     <View className='items-center'>
                         {jobs && jobs.map(job => (
