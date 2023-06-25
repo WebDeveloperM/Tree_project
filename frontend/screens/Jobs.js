@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import ServiceFooter from "../components/ServiceFooter";
 import axios from "axios";
 import {GET_JOBS} from "./utils/urls";
@@ -12,10 +12,11 @@ export default function Jobs() {
 
     const navigation = useNavigation()
 
-    useEffect(() => {
-        getJobs()
-    }, [])
-
+    useFocusEffect(
+        React.useCallback(() => {
+            getJobs()
+        }, [])
+    )
 
     const getJobs = async () => {
         const token = await AsyncStorage.getItem('token')
@@ -29,7 +30,6 @@ export default function Jobs() {
                 },
             };
             const response = await axios.request(config)
-            console.log(response.data)
             setJobs(response.data)
         } catch (error) {
             console.error(error, "error")
@@ -57,8 +57,12 @@ export default function Jobs() {
                                             <Image className='h-14 w-16' source={require('../assets/trees-20.png')}/>}
                                     </View>
                                     <View>
-                                        <Text
-                                            className='text-[22px] text-[#0AC16D] font-semibold mb-1'>{job.count} piece</Text>
+                                        <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
+                                            {job.address.split(', ')[1]} city
+                                        </Text>
+                                        <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
+                                            {job.count} piece
+                                        </Text>
                                         <Text className='text-[16px]'>{job.amount}$</Text>
                                     </View>
                                     <View className='ml-auto mr-2'>
