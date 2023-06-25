@@ -9,3 +9,5 @@ export const GET_ORDERS_DATA = 'http://127.0.0.1:8000/api/v1/main/full-order-dat
 export const GET_MY_WORK = 'http://127.0.0.1:8000/api/v1/main/farmer-order/'
 
 export const ORDER_CHANGE = 'http://127.0.0.1:8000/api/v1/main/order-change/'
+
+export const LAST_ORDERS = 'http://127.0.0.1:8000/api/v1/main/last-orders/'

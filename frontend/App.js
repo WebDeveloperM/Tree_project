@@ -17,6 +17,7 @@ import ServiceCamera from "./screens/ServiceCamera";
 import CompleteJob from "./screens/CompleteJob";
 import CompleteJobPhotos from "./screens/CompleteJobPhotos";
 import PhotoConfirmation from "./screens/PhotoConfirmation";
+import CommonMap from "./screens/CommonMap";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,7 @@ export default function App() {
                     <Stack.Screen name="CompleteJob" component={CompleteJob} options={hideHeader}/>
                     <Stack.Screen name="CompleteJobPhotos" component={CompleteJobPhotos} options={hideHeader}/>
                     <Stack.Screen name="PhotoConfirmation" component={PhotoConfirmation} options={hideHeader}/>
+                    <Stack.Screen name="CommonMap" component={CommonMap} options={hideHeader}/>
                 </Stack.Navigator>
             </NavigationContainer>
     );

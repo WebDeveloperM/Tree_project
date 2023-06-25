@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {View, Dimensions, Text, Image, Pressable, Alert} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
