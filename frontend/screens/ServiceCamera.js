@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {Camera, CameraType} from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import {useNavigation} from "@react-navigation/native";
 
 
 export default function ServiceCamera() {
@@ -10,6 +11,7 @@ export default function ServiceCamera() {
     // const [type, setType] = useState(Camera.Constants.Type.back)
     // const [flash, setFlash] = useState(Camera.Constants.FlashMode.off)
     const cameraRef = useRef(null)
+    const navigation = useNavigation()
 
     useEffect(() => {
         (async () => {
@@ -35,18 +37,19 @@ export default function ServiceCamera() {
         return <Text className='text-3xl text-[#999]'>No access to camera</Text>
     }
 
+    useEffect(() => {
+        image && navigation.navigate('PhotoConfirmation', {image, setImage})
+    }, [image]);
+
+
     return (
         <View className="flex-1 bg-[#31B44C]">
-            {!image ?
-                <Camera
-                    className='w-full h-[86%] rounded-b-2xl'
-                    // type={type}
-                    // flashMode={flash}
-                    ref={cameraRef}
-                />
-                :
-                <Image source={{uri: image}} className='w-full h-[86%] rounded-b-2xl'/>
-            }
+            <Camera
+                className='w-full h-[86%] rounded-b-2xl'
+                // type={type}
+                // flashMode={flash}
+                ref={cameraRef}
+            />
             <View className='w-full flex-row items-center justify-between h-20 px-10 '>
                 <View
                     className='border border-[#1B772E] rounded-2xl w-14 h-14 justify-center items-center bg-white mr-4'>
