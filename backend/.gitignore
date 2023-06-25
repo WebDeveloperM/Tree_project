@@ -1,3 +1,5 @@
+
+tree_conf/settings_prod.py
 env
 venv
 .idea
