@@ -47,7 +47,9 @@ class OrderStatusView(APIView):
 class OrderDoneApiView(APIView):
     def post(self, request):
         order_id = request.data.get("order_id", None)
-        instance = Order.objects.filter(Q(id=order_id) & Q(status=Order.IN_PROCESS)).first()
+        instance = Order.objects.filter(Q(id=order_id)).first()
+        if instance.status == Order.DONE:
+            return Response({"error": "This order alrady been done!!!"})
         serializer = OrderDoneSerializer(instance, data=request.data, context={'user': request.user})
         serializer.is_valid(raise_exception=True)
         serializer.save(data=request.data)

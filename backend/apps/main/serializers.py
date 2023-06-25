@@ -30,7 +30,6 @@ class OrderDoneSerializer(serializers.ModelSerializer):
 
     def update(self, instance, data):
         user = self.context['user']
-        print(user, 3333333333333)
         order_id = data['data']['order_id']
         plant_id = data['data']['plant_id']
         image = data['data']['image']
