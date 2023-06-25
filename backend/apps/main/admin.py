@@ -29,16 +29,16 @@ class OrderAdmin(AuthorMixin, admin.ModelAdmin):
     form = OrderForm
     list_display = ('status', 'count', 'farmer')
 
-    fields = ('count', 'location')
+    fields = ('count', 'location', 'address')
 
     list_filter = ('status', 'count', 'farmer')
-    fields = ('count', 'location')
+
 
     def save_model(self, request, obj, form, change):
         url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={obj.location}&key={settings.MAPS_API_KEY}"
         response = requests.get(url).json()
-        pprint(response)
-        obj.address = response.get('', {}).get('', {})
+        print(response)
+        obj.address = response["results"][0]["formatted_address"]
         super().save_model(request, obj, form, change)
 
         if change:
