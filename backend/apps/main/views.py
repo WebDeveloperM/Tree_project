@@ -5,7 +5,9 @@ from rest_framework.views import APIView
 from main.models import Plant, Order
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework import status
 from rest_framework.generics import get_object_or_404
+
 
 
 class PlantCreateListView(APIView):
@@ -39,5 +41,31 @@ class OrderStatusView(APIView):
             order.save()
             return Response({"msg": "OK"}, 200)
         return Response({'status': 'Order not found'}, 404)
+    
+
+
+# class OrderDoneView(APIView):
+#     def post(self, request):
+#         order = Order.objects.get(id=request.data.get("id"))
+        # try:
+        #     order = Order.objects.get(pk=pk)
+        # except Order.DoesNotExist:
+        #     return Response(status=status.HTTP_404_NOT_FOUND)
+
+        # if order.status != Order.IN_PROCESS:
+        #     return Response({'error': 'Order not in process'},
+        #                     status=status.HTTP_400_BAD_REQUEST)
+
+        # order.status = Order.DONE
+        # order.save()
+
+        # return Response({'status': 'Order done'},
+        #                 status=status.HTTP_200_OK)
+
+    
+    
+    
+
+
 
 

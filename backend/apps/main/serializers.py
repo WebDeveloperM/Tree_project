@@ -30,6 +30,8 @@ class OrderChangeSerializer(serializers.ModelSerializer):
 
 
 
+
+
 # class OrderProcessSerializer(serializers.ModelSerializer):
 #     def update(self, instance, data):
 #         instance = super().update(instance, data)
@@ -61,3 +63,7 @@ class OrderChangeSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Order
 #         fields = ('id', 'status', 'location', 'farmer')
+
+
+
+

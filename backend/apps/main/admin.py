@@ -18,7 +18,7 @@ class AuthorMixin:
 
 @admin.register(Plant)
 class PlantAdmin(AuthorMixin, admin.ModelAdmin):
-    list_display = ('type', 'farmer', 'investor')
+    list_display = ('type', 'farmer','status', 'investor')
     list_filter = ('status', 'payment')
 
 
