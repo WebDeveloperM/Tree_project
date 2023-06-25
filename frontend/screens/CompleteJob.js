@@ -18,7 +18,9 @@ export default function CompleteJob() {
             >
                 <Text className="text-green-500 text-[15px] font-bold">On the main</Text>
             </Pressable>
-            <Pressable className="w-[305px] h-[50px] bg-[#31B44C] rounded-2xl items-center justify-center my-2">
+            <Pressable
+                onPress={() => navigation.navigate('MyWork')}
+                className="w-[305px] h-[50px] bg-[#31B44C] rounded-2xl items-center justify-center my-2">
                 <Text className="w-[65px] text-white text-[15px] font-semibold">Planted</Text>
             </Pressable>
         </View>
