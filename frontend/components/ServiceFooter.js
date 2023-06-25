@@ -7,22 +7,21 @@ export default function ServiceFooter() {
     const navigation = useNavigation()
 
     return (
-        <View
-            className="fixed mx-auto bottom-0 flex-row items-center justify-around bg-[#D6F0DB] w-[90%] h-16 rounded-2xl">
-            <Pressable onPress={() => navigation.navigate('Home')}>
-                <Image className='w-8 h-8' source={require('../assets/home-icon.png')}/>
+        <View className="fixed mx-auto bottom-0 flex-row items-center justify-around bg-[#D6F0DB] w-[90%] h-16 rounded-2xl">
+            <Pressable onPress={()=> navigation.navigate('Home')}>
+                <Image className='w-8 h-8' source={require('../assets/home-icon.png')} />
             </Pressable>
             <Pressable>
-                <Image className='w-8 h-8' source={require('../assets/stats-icon.png')}/>
+                <Image className='w-8 h-8' source={require('../assets/stats-icon.png')} />
             </Pressable>
-            <Pressable onPress={() => navigation.navigate('ServiceCamera')}>
-                <Image className='w-18 h-18 mb-6' source={require('../assets/camera-icon.png')}/>
+            <Pressable onPress={()=>navigation.navigate('Order')}>
+                <Image className='w-18 h-18 mb-6' source={require('../assets/camera-icon.png')} />
             </Pressable>
-            <Pressable onPress={() => navigation.navigate('CompletePhotos')}>
-                <Image className='w-8 h-10' source={require('../assets/location-green.png')}/>
+            <Pressable>
+                <Image className='w-8 h-10' source={require('../assets/location-green.png')} />
             </Pressable>
-            <Pressable onPress={() => navigation.navigate('CompleteJob')}>
-                <Image className='w-8 h-10' source={require('../assets/user-icon.png')}/>
+            <Pressable>
+                <Image className='w-8 h-10' source={require('../assets/user-icon.png')} />
             </Pressable>
         </View>
     );

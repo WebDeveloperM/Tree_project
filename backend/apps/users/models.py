@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models import CASCADE
 from main.models import BaseModel
+# from users.utils.fields import expires_default
+# from users.utils import tokens
 
 
 class User(AbstractUser):

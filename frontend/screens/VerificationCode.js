@@ -1,29 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Image, Modal, StyleSheet, Text, View} from 'react-native';
+import {Alert, Animated, Easing, Image, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import NumberInput from "../components/NumberInput";
-import {useNavigation, useRoute} from "@react-navigation/native";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {LOGIN} from "./utils/urls";
+import {useNavigation} from "@react-navigation/native";
 
 
 export default function VerificationCode({confirm}) {
     const [passwordValue, setPasswordValue] = React.useState({1: '', 2: '', 3: '', 4: ''})
     const [timer, setTimer] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
-    const [open, setOpen] = useState(false)
+    const [open,setOpen] = useState(false)
     const navigation = useNavigation()
-    const route = useRoute();
-    const {dispatch, phone} = route.params;
-    let allPassword = `${passwordValue["1"]}${passwordValue["2"]}${passwordValue["3"]}${passwordValue["4"]}`
 
     useEffect(() => {
         setTimer(60)
     }, []);
 
     useEffect(() => {
-        if (allPassword.length === 4) {
-            login()
+        if (Object.values(passwordValue).every(Boolean) && !open) {
+            setModalVisible(true)
+            setOpen(true)
         }
     }, [passwordValue]);
 
@@ -32,37 +27,11 @@ export default function VerificationCode({confirm}) {
             const interval = setInterval(() => setTimer(timer - 1), 1000)
             return () => clearInterval(interval)
         }
-    }, [timer])
+    }, [timer, confirm])
 
-
-    const login = async () => {
-        try {
-            const response = await axios.post(LOGIN, {
-                phone: phone,
-                dispatch_id: "12345678",
-                code: allPassword
-            });
-            if (!open) {
-                setModalVisible(true)
-                setOpen(true)
-            }
-            // console.log(response.data.user.type)
-            await AsyncStorage.setItem("token", response.data.token)
-            setTimeout(() => {
-                if (response.data?.user?.type == 1) {
-                    navigation.navigate('Home');
-                } else {
-                    navigation.navigate('Jobs');
-                }
-                setModalVisible(false)
-            }, 1000);
-        } catch (error) {
-            Alert.alert(error.response.data.detail)
-        }
-    };
 
     return (
-        <View className="flex-1 items-center bg-white">
+        <View className="flex-1 items-center">
             <Modal
                 className='w-full h-full'
                 animationType="fade"
@@ -79,6 +48,7 @@ export default function VerificationCode({confirm}) {
                         <Image className='w-60 h-60' source={require('../assets/success.png')}/>
                         <Text className='font-bold text-[20px] mb-10 text-[#31B44C]'>Verification Successful!</Text>
                         <Text className='font-semibold text-[15px] mb-2' onPress={() => {
+                            navigation.navigate('MyWork')
                             setModalVisible(false)
                         }}>Please wait...</Text>
                         <Text className='font-semibold text-[15px] mb-10'>You will be directed to homepage.</Text>

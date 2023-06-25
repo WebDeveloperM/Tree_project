@@ -5,7 +5,6 @@
 media
 tree_conf/settings_dev.py
 config/settings_prod.py
-settings_dev.py
 .DS_Store
 .vscode/settings.json
 .vscode/launch.json
@@ -17,3 +16,4 @@ uploads
 vandelay-py.js
 .envrc
 files
+settings_dev.py

@@ -2,8 +2,7 @@ from django.db import models
 from django.db.models import SET_NULL
 from main.queryset.plant import PlantQuerySet
 from main.queryset.order import OrderQuerySet
-from django.db.models import PROTECT
-from main.utils.fields import LocationField
+from django.db.models import CASCADE, PROTECT
 
 
 class BaseModel(models.Model):
@@ -20,13 +19,13 @@ class BaseModel(models.Model):
 
 
 class Plant(BaseModel):
-    CREATED = "Created"
-    IN_ORDER = "In_order"
-    DONE = "Done"
+    CREATED = "created"
+    IN_ORDER = "in_order"
+    DONE = "done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_ORDER, 'In_Order'),
+        (IN_ORDER, 'In Order'),
         (DONE, 'Done'),
     )
 
@@ -43,21 +42,24 @@ class Plant(BaseModel):
     class Meta:
         db_table = 'main_plants'
 
+    def __str__(self):
+        return self.type
 
 
 class Order(BaseModel):
-    CREATED = "Created"
-    IN_PROCESS = "In_process"
-    DONE = "Done"
+    CREATED = "created"
+    IN_PROCESS = "in_process"
+    DONE = "done"
 
     STATUS = (
         (CREATED, 'Created'),
-        (IN_PROCESS, 'In_process'),
+        (IN_PROCESS, 'In process'),
         (DONE, 'Done'),
     )
 
     farmer = models.ForeignKey('users.User', PROTECT, null=True, blank=True)
-    location = LocationField(blank=True, max_length=255)
+    latitude = models.FloatField()  # x
+    longitude = models.FloatField()  # y
     count = models.IntegerField()
     status = models.CharField(max_length=255, choices=STATUS, default=CREATED)
 
@@ -65,3 +67,6 @@ class Order(BaseModel):
 
     class Meta:
         db_table = 'main_orders'
+
+    def __str__(self):
+        return self.farmer
