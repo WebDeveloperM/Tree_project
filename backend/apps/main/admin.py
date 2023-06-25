@@ -18,17 +18,15 @@ class AuthorMixin:
 
 @admin.register(Plant)
 class PlantAdmin(AuthorMixin, admin.ModelAdmin):
-    list_display = ('type', 'farmer','status', 'investor')
+    list_display = ('type', 'farmer', 'status', 'investor')
     list_filter = ('status', 'payment')
+    fields = ('type', 'order', 'investor', 'farmer', 'image', 'payment', 'status')
 
 
 @admin.register(Order)
 class OrderAdmin(AuthorMixin, admin.ModelAdmin):
     form = OrderForm
     list_display = ('status', 'count', 'farmer')
-
-    fields = ('count', 'location')
-
     list_filter = ('status', 'count', 'farmer')
     fields = ('count', 'location')
 

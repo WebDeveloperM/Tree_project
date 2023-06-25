@@ -43,6 +43,9 @@ class Plant(BaseModel):
     class Meta:
         db_table = 'main_plants'
 
+    def __str__(self):
+        return f'{self.order} - {self.status}'
+
 
 class Order(BaseModel):
     CREATED = "Created"
@@ -64,3 +67,6 @@ class Order(BaseModel):
 
     class Meta:
         db_table = 'main_orders'
+
+    def __str__(self):
+        return f'{self.farmer} - {self.status}'
