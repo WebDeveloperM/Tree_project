@@ -10,6 +10,13 @@ import Jobs from "./screens/Jobs";
 import MyWork from "./screens/MyWork";
 import Order from "./screens/Order";
 import VerificationCode from "./screens/VerificationCode";
+import AddCard from "./screens/AddCard";
+import Payment from "./screens/Payment";
+import ServiceMap from "./screens/ServiceMap";
+import ServiceCamera from "./screens/ServiceCamera";
+import CompleteJob from "./screens/CompleteJob";
+import CompletePhotos from "./screens/CompletePhotos";
+import CameraPhoto from "./screens/CameraPhoto";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +34,13 @@ export default function App() {
                     <Stack.Screen name="Jobs" component={Jobs} options={hideHeader}/>
                     <Stack.Screen name="MyWork" component={MyWork} options={hideHeader}/>
                     <Stack.Screen name="Order" component={Order} options={hideHeader}/>
+                    <Stack.Screen name="AddCard" component={AddCard} options={hideHeader}/>
+                    <Stack.Screen name="Payment" component={Payment} options={hideHeader}/>
+                    <Stack.Screen name="ServiceMap" component={ServiceMap} options={hideHeader}/>
+                    <Stack.Screen name="ServiceCamera" component={ServiceCamera} options={hideHeader}/>
+                    <Stack.Screen name="CompleteJob" component={CompleteJob} options={hideHeader}/>
+                    <Stack.Screen name="CompletePhotos" component={CompletePhotos} options={hideHeader}/>
+                    <Stack.Screen name="CameraPhoto" component={CameraPhoto} options={hideHeader}/>
                 </Stack.Navigator>
             </NavigationContainer>
     );
