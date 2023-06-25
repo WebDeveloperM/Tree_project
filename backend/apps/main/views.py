@@ -3,7 +3,8 @@ from main.serializers import (
     OrderSerializer,
     OrderChangeSerializer,
     OrderDoneSerializer,
-    FullOrderSerializer
+    FullOrderSerializer,
+    LastOrderSerializer
 
 )
 from django.db.models import Q
@@ -34,9 +35,12 @@ class OrderListView(APIView):
         serialiser = OrderSerializer(orders, many=True)
         return Response(serialiser.data, 200)
 
+
 class OrderListPercentApiView(APIView):
     def get(self, request):
         orders = Order.objects.filter()
+
+
 class OrderStatusView(APIView):
     def patch(self, request):
         order = Order.objects.get(id=request.data.get("id"))
@@ -73,8 +77,7 @@ class LastOrdersApiView(APIView):
 
     def get(self, request):
         orders = Order.objects.filter(status=Order.DONE).order_by('-updated_at')[:10]
-        print(orders)
-        return Response(OrderSerializer(orders, many=True).data)
+        return Response(LastOrderSerializer(orders, many=True).data)
 
 
 class FullOrderDataApiView(APIView):

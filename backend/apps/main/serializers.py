@@ -22,6 +22,18 @@ class OrderSerializer(serializers.ModelSerializer):
         ret["amount"] = instance.count * 5
         return ret
 
+class LastOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'status', 'location', 'address')
+
+    def to_representation(self, instance):
+        plants = Plant.objects.filter(order__id = instance.id)
+        ret = super().to_representation(instance)
+        ret["count"] = instance.count
+        ret["amount"] = instance.count * 5
+        ret["plants"] = PlantSerializer(plants, many=True).data
+        return ret
 
 class OrderDoneSerializer(serializers.ModelSerializer):
     class Meta:
