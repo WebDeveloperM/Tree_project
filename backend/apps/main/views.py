@@ -36,11 +36,6 @@ class OrderListView(APIView):
         return Response(serialiser.data, 200)
 
 
-class OrderListPercentApiView(APIView):
-    def get(self, request):
-        orders = Order.objects.filter()
-
-
 class OrderStatusView(APIView):
     def patch(self, request):
         order = Order.objects.get(id=request.data.get("id"))
@@ -86,10 +81,3 @@ class FullOrderDataApiView(APIView):
         order = Order.objects.filter(id=id).first()
         serializers = FullOrderSerializer(order)
         return Response(serializers.data, 200)
-
-
-class AllPlant(APIView):
-    def get(self, request):
-        id = request.data.get("id")
-        plants = Plant.objects.filter(Q(order__id=id))
-        return Response(PlantSerializer(plants, many=True).data)
