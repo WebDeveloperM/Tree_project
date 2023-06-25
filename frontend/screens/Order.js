@@ -10,8 +10,6 @@ export default function Order() {
     const navigation = useNavigation()
 
     const getCard = async (id) => {
-        console.log(id)
-        // AsyncStorage.setItem('order', id)
         try {
             const token = await AsyncStorage.getItem('token')
             const headers = {
@@ -19,10 +17,15 @@ export default function Order() {
                 'Content-Type': 'application/json',
             };
             const response = await axios.get(GET_CARD, {headers})
+            console.log(response.data[0].number)
+            await AsyncStorage.setItem('order', id.toString());
             if (response.data.length === 0) {
                 navigation.navigate('AddCard')
             } else {
-                navigation.navigate('Payment',)
+                navigation.navigate('Payment', {
+                    cardDate: response.data[0].due_date,
+                    cardNumber: response.data[0].number
+                })
             }
         } catch (error) {
             console.error(error.response.data);
