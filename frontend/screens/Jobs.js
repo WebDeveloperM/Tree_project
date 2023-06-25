@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
-import {useNavigation} from "@react-navigation/native";
+import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import ServiceFooter from "../components/ServiceFooter";
 import axios from "axios";
 import {GET_JOBS} from "./utils/urls";
@@ -12,10 +12,11 @@ export default function Jobs() {
 
     const navigation = useNavigation()
 
-    useEffect(() => {
-        getJobs()
-    }, [])
-
+    useFocusEffect(
+        React.useCallback(() => {
+            getJobs()
+        }, [])
+    )
 
     const getJobs = async () => {
         const token = await AsyncStorage.getItem('token')
@@ -29,10 +30,18 @@ export default function Jobs() {
                 },
             };
             const response = await axios.request(config)
-            console.log(response.data)
             setJobs(response.data)
         } catch (error) {
             console.error(error, "error")
+        }
+    }
+
+    const logOut = async () => {
+        try {
+            await AsyncStorage.multiRemove(['token', 'user-type'])
+            navigation.replace('Information')
+        } catch (error) {
+            console.log(error, 'error')
         }
     }
 
@@ -41,6 +50,11 @@ export default function Jobs() {
             <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
                 <View className="w-full h-full items-center">
+                    <Pressable
+                        onPress={logOut}
+                        className='absolute top-4 left-6 border border-[#1B772E] rounded-xl py-2 px-4'>
+                        <Text className='text-[16px] text-[#1B772E] font-semibold'>Log out</Text>
+                    </Pressable>
                     <Text className='text-[30px] font-semibold my-8 '>Jobs</Text>
                     <View className='items-center'>
                         {jobs && jobs.map(job => (
@@ -57,8 +71,12 @@ export default function Jobs() {
                                             <Image className='h-14 w-16' source={require('../assets/trees-20.png')}/>}
                                     </View>
                                     <View>
-                                        <Text
-                                            className='text-[22px] text-[#0AC16D] font-semibold mb-1'>{job.count} piece</Text>
+                                        <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
+                                            {job.address.split(', ')[1]} city
+                                        </Text>
+                                        <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
+                                            {job.count} piece
+                                        </Text>
                                         <Text className='text-[16px]'>{job.amount}$</Text>
                                     </View>
                                     <View className='ml-auto mr-2'>

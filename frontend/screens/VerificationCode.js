@@ -50,9 +50,9 @@ export default function VerificationCode({confirm}) {
             await AsyncStorage.setItem("token", response.data.token)
             setTimeout(() => {
                 if (response.data?.user?.type == 1) {
-                    navigation.navigate('Home');
+                    navigation.replace('Home');
                 } else {
-                    navigation.navigate('Jobs');
+                    navigation.replace('Jobs');
                 }
                 setModalVisible(false)
             }, 1000);

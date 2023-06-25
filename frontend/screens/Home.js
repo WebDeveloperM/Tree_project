@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {useFocusEffect, useNavigation, useRoute} from "@react-navigation/native";
 import InvestorFooter from "../components/InvestorFooter";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -25,8 +25,17 @@ export default function Home() {
                 'Content-Type': 'application/json',
             };
             const response = await axios.get('http://127.0.0.1:8000/api/v1/finance/investor-orders/', {headers})
-            console.log(response.data);
+            // console.log(response.data);
             setOrders(response.data)
+        } catch (error) {
+            console.log(error, 'error')
+        }
+    }
+
+    const logOut = async () => {
+        try {
+            await AsyncStorage.multiRemove(['token', 'user-type'])
+            navigation.replace('Information')
         } catch (error) {
             console.log(error, 'error')
         }
@@ -36,6 +45,11 @@ export default function Home() {
         <ScrollView showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}>
             <View className="w-full h-full items-center">
+                <Pressable
+                    onPress={logOut}
+                    className='absolute top-4 left-4 border border-[#1B772E] rounded-xl py-2 px-4 z-10 bg-white'>
+                    <Text className='text-[16px] text-[#1B772E] font-semibold'>Log out</Text>
+                </Pressable>
                 <View className='h-56 w-full bg-gray-400 items-center justify-center'>
                     <Text>view for chart</Text>
                 </View>
