@@ -36,8 +36,8 @@ export default function Authentication() {
         if (phoneNumber.length === 14) {
             setConfirm(true)
             try {
-                const jsonValue = JSON.stringify(key);
-                await AsyncStorage.setItem('user-type', jsonValue);
+                const stringKey = String(key);
+                await AsyncStorage.setItem('user-type', stringKey);
 
                 const registerResponse = await axios.post(REGISTER, {
                     phone: phoneNumber,

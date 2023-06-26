@@ -92,7 +92,7 @@ export default function ServiceMap() {
             </MapView>
             <Pressable
                 onPress={getOrder}
-                className='absolute bg-black z-10 bottom-10 w-full px-10 bg-transparent rounded-2xl'>
+                className='absolute bg-black z-10 bottom-16 w-full px-10 bg-transparent rounded-2xl'>
                 <Button text={'Receive'}/>
             </Pressable>
         </View>

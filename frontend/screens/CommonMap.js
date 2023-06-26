@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {View, Dimensions, Text, Image, Pressable, Alert} from 'react-native';
+import {View, Dimensions, Text, Image, Pressable, StyleSheet} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
-import Button from "../components/common/Button";
 import {GET_JOBS, LAST_ORDERS, ORDER_CHANGE} from "./utils/urls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -33,7 +32,7 @@ export default function CommonMap() {
         try {
             const response = await axios.get(LAST_ORDERS)
             setLocations(response.data)
-            console.log(response.data)
+            console.log(response.data[0].plants)
         } catch (error) {
             console.error(error, "error")
         }
@@ -58,10 +57,34 @@ export default function CommonMap() {
                 {locations && locations.map(location => (
                     <Marker
                         key={location.id}
-                        coordinate={{latitude: location.location.split(',')[0], longitude: location.location.split(',')[1]}}
-                    />
+                        coordinate={{
+                            latitude: location.location.split(',')[0],
+                            longitude: location.location.split(',')[1]
+                        }}
+                        className='items-center justify-center'
+                    >
+                        <View className='p-1 bg-gray-300 rounded-2xl mb-2' style={styles.shadow}>
+                            <Image className='w-16 h-16 rounded-2xl' source={{uri:location.plants[0].image}}/>
+                        </View>
+                        <View className='w-6 h-6 rounded-full bg-[#31B44C]/30 items-center justify-center'>
+                            <View className='w-4 h-4 rounded-full bg-[#31B44C]'></View>
+                        </View>
+                    </Marker>
                 ))}
             </MapView>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    shadow: {
+        shadowColor: "#000000",
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        shadowOpacity: 0.21,
+        shadowRadius: 8.19,
+        elevation: 11
+    }
+})
