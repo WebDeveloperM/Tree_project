@@ -23,15 +23,6 @@ export default function Authentication() {
 
     const navigation = useNavigation()
 
-
-    useEffect(() => {
-        phoneNumber.length !== 14 && setConfirm(false)
-        if (phoneNumber.length === 14) {
-            Keyboard.dismiss()
-        }
-    }, [phoneNumber])
-
-
     const confirmNumber = async () => {
         if (phoneNumber.length === 14) {
             setConfirm(true)
@@ -49,7 +40,7 @@ export default function Authentication() {
                 const phone = registerResponse.data.phone;
                 navigation.navigate('VerificationCode', {confirm, dispatch, phone})
             } catch (error) {
-                console.error(error.response.data);
+                console.log(error)
             }
         } else {
             Alert.alert('Phone number should be 12 numbers')
@@ -82,7 +73,7 @@ export default function Authentication() {
                         />
                     </View>
                 </View>
-                <Pressable onPress={() => confirmNumber()}>
+                <Pressable onPress={confirmNumber}>
                     <View className='w-80 mt-36'>
                         <Button text={'Send code'}/>
                     </View>

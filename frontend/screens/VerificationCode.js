@@ -36,7 +36,7 @@ export default function VerificationCode({confirm}) {
                 setModalVisible(true)
                 setOpen(true)
             }
-            console.log(response.data.token)
+            console.log(response.data.user.type)
             await AsyncStorage.setItem("token", response.data.token)
 
             setTimeout(() => {

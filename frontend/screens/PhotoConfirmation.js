@@ -6,10 +6,11 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 export default function PhotoConfirmation() {
     const navigation = useNavigation()
     const route = useRoute();
-    let image = "https://onlinejpgtools.com/images/examples-onlinejpgtools/sunflower.jpg"
+    const {image, setImage} = route.params
 
     const backToCamera = () => {
         navigation.navigate('ServiceCamera')
+        setImage("")
     }
 
     return (

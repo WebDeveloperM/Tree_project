@@ -34,7 +34,7 @@ class Plant(BaseModel):
     order = models.ForeignKey('Order', PROTECT, null=True, blank=False)
     investor = models.ForeignKey('users.User', PROTECT, related_name='investor_plants')
     farmer = models.ForeignKey('users.User', PROTECT, related_name='farmer_plants', null=True, blank=True)
-    image = models.ImageField(upload_to="images", null=True, blank=True)
+    image = models.ImageField(null=True, blank=True)
     payment = models.ForeignKey('finance.Payment', PROTECT)
     status = models.CharField(max_length=255, choices=STATUS, default=CREATED)
 
