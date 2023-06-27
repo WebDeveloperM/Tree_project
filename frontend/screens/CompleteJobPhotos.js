@@ -51,7 +51,9 @@ export default function CompleteJobPhotos() {
                                 key={item.id}
                                 onPress={() => navigation.navigate('ServiceCamera')}
                                 className='w-[48%] h-36 border border-[#1B772E] rounded-2xl items-center justify-center mb-4'>
-                                <Image source={item.image}/>
+                                {item.image ? <Image source={item.image}/> :
+                                    <Image source={require('../assets/camera-icon-2.png')}/>}
+
                             </Pressable>
                         ))}
                     </View>
