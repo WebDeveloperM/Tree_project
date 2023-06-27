@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Image, Pressable, SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {useFocusEffect, useNavigation, useRoute} from "@react-navigation/native";
 import InvestorFooter from "../components/InvestorFooter";
@@ -10,7 +10,6 @@ import {INVESTOR_ORDERS} from "./utils/urls";
 
 export default function Home() {
     const [orders, setOrders] = useState([])
-    const route = useRoute()
     const navigation = useNavigation()
 
     useFocusEffect(
@@ -49,12 +48,12 @@ export default function Home() {
             <View className="w-full h-full items-center">
                 <Pressable
                     onPress={logOut}
-                    className='absolute top-4 left-4 border border-[#1B772E] rounded-xl py-2 px-4 z-10 bg-white'>
-                    <Text className='text-[16px] text-[#1B772E] font-semibold'>Log out</Text>
+                    className='absolute top-3 left-4 border border-[#1B772E] rounded py-2 px-3 z-10 bg-white'>
+                    <Text className='text-[12px] text-[#1B772E] font-semibold'>Log out</Text>
                 </Pressable>
-                <View className='mt-8 w-full items-center justify-center'>
-                    <Chart />
-                </View>
+                {orders.length ? <View className='mt-8 w-full items-center justify-center'>
+                    <Chart/>
+                </View> : ''}
                 <Text className='text-[30px] font-semibold my-12'>Wellcome</Text>
                 <View className='items-center w-full'>
                     {orders.length ? orders.map(order => (

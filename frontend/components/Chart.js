@@ -10,9 +10,8 @@ const Chart = () => {
     const [data, setData] = useState([
         {key: 'Planted trees', value: 50, svg: {fill: '#31B44C'}},
         {key: 'In process', value: 30, svg: {fill: '#31B44C70'}},
-        {key: 'Confirmation your order', value: 20, svg: {fill: '#31B44C40'}},
+        {key: 'Confirmation your order', value: 20, svg: {fill: '#31B44C40'}}
     ])
-
     const [done, setDone] = useState(0)
     const [inOrder, setInOrder] = useState(0)
     const [created, setCreated] = useState(0)
@@ -23,14 +22,15 @@ const Chart = () => {
         setCreated(value.created * 100 / total)
 
         setData([
-            ...data,
-            data[0].value = done,
-            data[1].value = inOrder,
-            data[2].value = created
+            {key: 'Planted trees', value: done, svg: {fill: '#31B44C'}},
+            {key: 'In process', value: inOrder, svg: {fill: '#31B44C70'}},
+            {key: 'Confirmation your order', value: created, svg: {fill: '#31B44C40'}},
+            // data[0][value] = done,
+            // data[1][value] = inOrder,
+            // data[2][value] = created
         ])
-
-        console.log(data)
     }
+
 
     const getData = async () => {
         try {
@@ -56,29 +56,22 @@ const Chart = () => {
         return (
             <>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-                    <Text style={{marginRight: 10}}>{done}%</Text>
+                    <Text style={{marginRight: 5, width: 40}}>{done}%</Text>
                     <View style={{width: 10, height: 10, backgroundColor: '#31B44C', marginRight: 5}}/>
                     <Text style={{width: '60%'}}>Planted trees</Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-                    <Text style={{marginRight: 10}}>{Math.round(inOrder)}%</Text>
+                    <Text style={{marginRight: 5, width: 40}}>{Math.round(inOrder)}%</Text>
                     <View style={{width: 10, height: 10, backgroundColor: '#31B44C70', marginRight: 5}}/>
                     <Text style={{width: '60%'}}>In process</Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-                    <Text style={{marginRight: 10}}>{Math.round(created)}%</Text>
+                    <Text style={{marginRight: 5, width: 40}}>{Math.round(created)}%</Text>
                     <View style={{width: 10, height: 10, backgroundColor: '#31B44C40', marginRight: 5}}/>
                     <Text style={{width: '60%'}}>Confirmation your order</Text>
                 </View>
             </>
         )
-        // data.map((item, index) => (
-        //     <View key={index} style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-        //         <Text style={{marginRight: 10}}>{item.value}%</Text>
-        //         <View style={{width: 10, height: 10, backgroundColor: item.svg.fill, marginRight: 5}}/>
-        //         <Text style={{width: '60%'}}>{item.key}</Text>
-        //     </View>
-        // ));
     };
 
 
