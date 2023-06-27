@@ -1,12 +1,11 @@
 from django.urls import path
-from django.urls import path
 from main.views import (PlantCreateListView,
                         OrderListView,
                         OrderStatusView,
                         OrderDoneApiView,
                         FarmerOrderApiView,
                         LastOrdersApiView,
-                        FullOrderDataApiView
+                        FullOrderDataApiView,
                         )
 
 urlpatterns = [

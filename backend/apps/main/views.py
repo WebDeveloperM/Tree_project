@@ -5,8 +5,8 @@ from main.serializers import (
     OrderDoneSerializer,
     FullOrderSerializer,
     LastOrderSerializer
-
 )
+
 from django.db.models import Q
 from rest_framework.views import APIView
 from main.models import Plant, Order
@@ -52,8 +52,10 @@ class OrderDoneApiView(APIView):
     def post(self, request):
         order_id = request.data.get("order_id", None)
         instance = Order.objects.filter(Q(id=order_id)).first()
+
         if instance.status == Order.DONE:
             return Response({"error": "This order alrady have been done!!!"})
+
         serializer = OrderDoneSerializer(instance, data=request.data, context={'user': request.user})
         serializer.is_valid(raise_exception=True)
         serializer.save(data=request.data)
@@ -65,6 +67,18 @@ class FarmerOrderApiView(APIView):
         orders = Order.objects.filter(farmer=request.user)
         serializers = OrderSerializer(orders, many=True)
         return Response(serializers.data)
+
+
+class PlantAPI(APIView):
+    def post(self, request, pk):
+        student = Plant.objects.get(id=pk)
+        print(student)
+        serilizer = PlantApiSerializer(instance=student, data=request.data)
+
+        if serilizer.is_valid():
+            serilizer.save()
+
+        return Response(serilizer.data)
 
 
 class LastOrdersApiView(APIView):

@@ -12,7 +12,6 @@ class CardListSerializer(serializers.ModelSerializer):
 
 class CardSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
-        print(instance)
         ret = super().to_representation(instance)
         return ret
 

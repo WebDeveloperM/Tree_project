@@ -22,18 +22,20 @@ class OrderSerializer(serializers.ModelSerializer):
         ret["amount"] = instance.count * 5
         return ret
 
+
 class LastOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'status', 'location', 'address')
 
     def to_representation(self, instance):
-        plants = Plant.objects.filter(order__id = instance.id)
+        plants = Plant.objects.filter(order__id=instance.id)
         ret = super().to_representation(instance)
         ret["count"] = instance.count
         ret["amount"] = instance.count * 5
         ret["plants"] = PlantSerializer(plants, many=True).data
         return ret
+
 
 class OrderDoneSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,8 +47,13 @@ class OrderDoneSerializer(serializers.ModelSerializer):
         order_id = data['data']['order_id']
         plant_id = data['data']['plant_id']
         image = data['data']['image']
+
         if plant_id and order_id:
-            Plant.objects.filter(Q(id=plant_id)).update(status=Plant.DONE, image=image, farmer=user)
+            plant = Plant.objects.filter(Q(id=plant_id)).first()
+            plant.status = Plant.DONE
+            plant.image = image
+            plant.farmer = user
+            plant.save()
             plants_count = Plant.objects.filter(Q(order__id=order_id) & Q(status=Plant.DONE)).count()
             order_obj_count = Order.objects.filter(id=order_id).first().count
 
@@ -73,8 +80,7 @@ class FullOrderSerializer(serializers.ModelSerializer):
         fields = ('id', 'status', 'location', 'address')
 
     def to_representation(self, instance):
-        plants = Plant.objects.filter(order__id = instance.id)
-        print(plants)
+        plants = Plant.objects.filter(order__id=instance.id)
         ret = super().to_representation(instance)
         ret["count"] = instance.count
         ret["amount"] = instance.count * 5
