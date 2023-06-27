@@ -9,17 +9,10 @@ import * as FileSystem from 'expo-file-system';
 
 export default function ServiceCamera() {
     const [hasCameraAccess, setHasCameraAccess] = useState(null);
+    const navigation = useNavigation();
     const [image, setImage] = useState(null);
     const cameraRef = useRef(null);
-    const navigation = useNavigation();
-
-    useEffect(() => {
-        (async () => {
-            await ImagePicker.requestMediaLibraryPermissionsAsync();
-            const cameraStatus = await Camera.requestCameraPermissionsAsync();
-            setHasCameraAccess(cameraStatus.status === 'granted');
-        })();
-    }, []);
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const takePicture = async () => {
         if (cameraRef.current) {
@@ -68,32 +61,35 @@ export default function ServiceCamera() {
             Authorization: `Token ${token}`,
             'Content-Type': 'multipart/form-data',
         };
-        try {
-            const formData = new FormData();
-            formData.append('order_id', '7');
-            formData.append('plant_id', '111');
-            formData.append('image', {
-                uri: jpegUri,
-                name: 'image.jpg',
-            });
-            const response = await axios.post(apiUrl, formData, {headers});
-            navigation.navigate('PhotoConfirmation', {image: jpegUri, setImage: setImage});
-            console.log('Image uploaded successfully:', response.data);
-        } catch (error) {
-            console.error('Error uploading image:', error.response.data);
-        }
+            try {
+                const formData = new FormData();
+                formData.append('order_id', '7');
+                formData.append('plant_id', '111');
+                formData.append('image', {
+                    uri: jpegUri,
+                    name: 'image.jpg',
+                });
+                const response = await axios.post(apiUrl, formData, {headers});
+                navigation.navigate('PhotoConfirmation', {image: jpegUri, setImage: setImage});
+                console.log('Image uploaded successfully:', response.data);
+            } catch (error) {
+                navigation.navigate('PhotoConfirmation');
+                console.error('Error uploading image:', error.response.data);
+            }
     };
 
     if (hasCameraAccess === false) {
         return <Text className="text-3xl text-[#999]">No access to camera</Text>;
     }
+
     return (
         <View className="flex-1 bg-[#31B44C]">
             <Camera className="w-full h-[86%] rounded-b-2xl" ref={cameraRef}/>
             <View className="w-full flex-row items-center justify-between h-20 px-10 ">
                 <Pressable onPress={selectImage}>
                     <View
-                        className="border border-[#1B772E] rounded-2xl w-14 h-14 justify-center items-center bg-white mr-4">
+                        className="border border-[#1B772E] rounded-2xl w-14 h-14 justify-center items-center bg-white mr-4"
+                    >
                         <Image className="h-10 w-10" source={require('../assets/tree.png')}/>
                     </View>
                 </Pressable>
@@ -103,7 +99,8 @@ export default function ServiceCamera() {
                     </View>
                 </Pressable>
                 <View
-                    className="border border-[#1B772E] rounded-2xl w-14 h-14 justify-center items-center bg-white mr-4">
+                    className="border border-[#1B772E] rounded-2xl w-14 h-14 justify-center items-center bg-white mr-4"
+                >
                     <Image className="h-10 w-10" source={require('../assets/tree.png')}/>
                 </View>
             </View>
