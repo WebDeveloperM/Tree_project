@@ -90,7 +90,7 @@ class LastOrdersApiView(APIView):
 
 
 class FullOrderDataApiView(APIView):
-    def get(self, request):
+    def post(self, request):
         id = request.data.get("order_id", None)
         order = Order.objects.filter(id=id).first()
         serializers = FullOrderSerializer(order)

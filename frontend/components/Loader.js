@@ -29,8 +29,8 @@ const Loader = () => {
             <Text className='text-[80px] font-bold text-[#31B44C]'>Tree+1</Text>
             <View className="top-24 overflow-hidden">
                 <Animated.View style={[{transform: [{rotate: rotation}]}]}>
-                    {/*<Image source={require('../assets/spinner-of-dots.png')}/>*/}
-                    <View className='w-14 h-14 rounded-full border-4 border-dotted border-[#31B44C]'></View>
+                    <Image source={require('../assets/spinner-of-dots.png')}/>
+                    {/*<View className='w-14 h-14 rounded-full border-4 border-dotted border-[#31B44C]'></View>*/}
                 </Animated.View>
             </View>
         </>

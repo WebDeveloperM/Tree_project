@@ -5,11 +5,11 @@ import {useNavigation, useRoute} from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {LOGIN} from "./utils/urls";
+import Timer from '../components/Timer'
 
 
 export default function VerificationCode({confirm}) {
     const [passwordValue, setPasswordValue] = React.useState({1: '', 2: '', 3: '', 4: ''})
-    const [timer, setTimer] = useState(0)
     const [modalVisible, setModalVisible] = useState(false)
     const [open, setOpen] = useState(false)
     const navigation = useNavigation()
@@ -17,22 +17,12 @@ export default function VerificationCode({confirm}) {
     const {dispatch, phone} = route.params;
     let allPassword = `${passwordValue["1"]}${passwordValue["2"]}${passwordValue["3"]}${passwordValue["4"]}`
 
-    useEffect(() => {
-        setTimer(60)
-    }, []);
 
     useEffect(() => {
         if (allPassword.length === 4) {
             login()
         }
     }, [passwordValue]);
-
-    useEffect(() => {
-        if (timer > 0) {
-            const interval = setInterval(() => setTimer(timer - 1), 1000)
-            return () => clearInterval(interval)
-        }
-    }, [timer])
 
 
     const login = async () => {
@@ -46,13 +36,14 @@ export default function VerificationCode({confirm}) {
                 setModalVisible(true)
                 setOpen(true)
             }
-            // console.log(response.data.user.type)
+            console.log(response.data.user.type)
             await AsyncStorage.setItem("token", response.data.token)
+
             setTimeout(() => {
                 if (response.data?.user?.type == 1) {
-                    navigation.replace('Home');
+                    navigation.navigate('Home');
                 } else {
-                    navigation.replace('Jobs');
+                    navigation.navigate('Jobs');
                 }
                 setModalVisible(false)
             }, 1000);
@@ -92,26 +83,13 @@ export default function VerificationCode({confirm}) {
             </Text>
             <NumberInput
                 confirm={confirm}
-                timer={timer}
-                setTimer={setTimer}
                 value={passwordValue}
                 setValue={setPasswordValue}
             />
             <Text className='w-[80%] px-3 mt-14 text-[15px] font-semibold text-center'>
                 Didn't receive code?
             </Text>
-            {timer !== 0 ?
-                <Text className='w-[80%] px-3 mt-4 text-[15px] font-semibold text-center'>
-                    You can resend code code in <Text className='text-[#31B44C]'>{timer}</Text> s
-                </Text>
-                :
-                <Text
-                    onPress={() => setTimer(60)}
-                    className='w-[80%] px-3 mt-4 text-[15px] font-semibold text-center text-[#31B44C]'
-                >
-                    Resend code
-                </Text>
-            }
+            <Timer />
         </View>
     );
 }

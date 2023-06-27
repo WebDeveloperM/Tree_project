@@ -81,7 +81,7 @@ export default function Information() {
                 </View>
 
                 <View className='h-28 pt-12 w-52 flex-row justify-between'>
-                    <Pressable>
+                    <Pressable onPress={() => navigation.navigate('CommonMap')}>
                         <View
                             className='w-16 h-16 bg-[#D6F0DB] rounded-xl border border-[#1B772E] items-center justify-center'>
                             <Image source={require('../assets/location-icon.png')}/>

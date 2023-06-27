@@ -22,7 +22,6 @@ export default function AddCard() {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json',
                 };
-                console.log(cardDate.replace('/', ''))
                 const response = await axios.post(ADD_CARD, {
                     number: cardNumber.replace(/\s+/g, ''),
                     due_date: cardDate.replace('/', '')
