@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {View, Dimensions, Text, Image, Pressable, StyleSheet} from 'react-native';
+import {View, Dimensions, Text, Image, Pressable, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import {GET_JOBS, LAST_ORDERS, ORDER_CHANGE} from "./utils/urls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -27,12 +27,12 @@ export default function CommonMap() {
         getLocations()
     }, [])
 
+
     const getLocations = async () => {
         const token = await AsyncStorage.getItem('token')
         try {
             const response = await axios.get(LAST_ORDERS)
             setLocations(response.data)
-            console.log(response.data[0].plants)
         } catch (error) {
             console.error(error, "error")
         }
@@ -46,7 +46,7 @@ export default function CommonMap() {
                 <Pressable onPress={() => navigation.goBack()}>
                     <Image className='w-4 h-8' source={require('../assets/arrow-left-white.png')}/>
                 </Pressable>
-                <Text className='text-white text-[56px] font-semibold ml-4'>3+1</Text>
+                <Text className='text-white text-[56px] font-semibold ml-4' onPress={() => navigation.navigate('CommonMapImages', {location: locations[0]})}>3+1</Text>
             </View>
             <MapView
                 className='w-full h-full'
@@ -61,11 +61,17 @@ export default function CommonMap() {
                             latitude: location.location.split(',')[0],
                             longitude: location.location.split(',')[1]
                         }}
-                        className='items-center justify-center'
+                        className='items-center justify-center z-0'
                     >
-                        <View className='p-1 bg-gray-300 rounded-2xl mb-2' style={styles.shadow}>
-                            <Image className='w-16 h-16 rounded-2xl' source={{uri:location.plants[0].image}}/>
-                        </View>
+                        <TouchableOpacity
+                            // onPress={(e) => navigation.navigate('CommonMapImages')}
+                            className='p-1 bg-gray-300 rounded-2xl mb-2 relative' style={styles.shadow}>
+                            <View className='absolute z-10 right-0 py-1 px-2 bg-[#31B44C] rounded'>
+                                <Text className='text-white font-bold test-[20px]'>{location.plants.length}</Text>
+                            </View>
+                            <Image className='w-16 h-16 rounded-2xl'
+                                   source={{uri: `http://127.0.0.1:8000/${location.plants[0].image}`}}/>
+                        </TouchableOpacity>
                         <View className='w-6 h-6 rounded-full bg-[#31B44C]/30 items-center justify-center'>
                             <View className='w-4 h-4 rounded-full bg-[#31B44C]'></View>
                         </View>
