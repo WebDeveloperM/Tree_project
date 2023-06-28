@@ -31,16 +31,15 @@ export default function Authentication() {
                 await AsyncStorage.setItem('user-type', stringKey);
 
                 const registerResponse = await axios.post(REGISTER, {
-                    phone: phoneNumber,
+                    phone: `998${phoneNumber.replace(/\D/g, '')}`,
                     region: region,
                     type: key
                 });
-                // console.log(registerResponse.data)
                 const dispatch = registerResponse.data.dispatch_id;
                 const phone = registerResponse.data.phone;
                 navigation.navigate('VerificationCode', {confirm, dispatch, phone})
             } catch (error) {
-                console.log(error)
+                console.log(error.response)
             }
         } else {
             Alert.alert('Phone number should be 12 numbers')

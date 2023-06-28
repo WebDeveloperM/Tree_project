@@ -29,7 +29,7 @@ export default function VerificationCode({confirm}) {
         try {
             const response = await axios.post(LOGIN, {
                 phone: phone,
-                dispatch_id: "12345678",
+                dispatch_id: dispatch,
                 code: allPassword
             });
             if (!open) {
