@@ -72,7 +72,11 @@ export default function Jobs() {
                                     </View>
                                     <View>
                                         <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
-                                            {job.address.split(', ')[1]} city
+                                            {
+                                                job.address.split(', ')[1].length > 18 ?
+                                                    job.address.split(', ')[1].substring(0, 15) + '...' :
+                                                    job.address.split(', ')[1]
+                                            }
                                         </Text>
                                         <Text className='text-[20px] text-[#0AC16D] font-semibold mb-1'>
                                             {job.count} piece

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {Camera} from 'expo-camera';
 import {useNavigation} from '@react-navigation/native';
@@ -12,7 +12,6 @@ export default function ServiceCamera() {
     const navigation = useNavigation();
     const [image, setImage] = useState(null);
     const cameraRef = useRef(null);
-    const [isSuccess, setIsSuccess] = useState(false)
 
     const takePicture = async () => {
         if (cameraRef.current) {
@@ -54,29 +53,9 @@ export default function ServiceCamera() {
     };
 
     const uploadImage = async (uri) => {
-        const apiUrl = 'http://127.0.0.1:8000/api/v1/main/orders-done/';
         const jpegUri = await convertToJPEG(uri);
-        const token = await AsyncStorage.getItem('token');
-        const headers = {
-            Authorization: `Token ${token}`,
-            'Content-Type': 'multipart/form-data',
-        };
-            try {
-                const formData = new FormData();
-                formData.append('order_id', '7');
-                formData.append('plant_id', '111');
-                formData.append('image', {
-                    uri: jpegUri,
-                    name: 'image.jpg',
-                });
-                const response = await axios.post(apiUrl, formData, {headers});
-                navigation.navigate('PhotoConfirmation', {image: jpegUri, setImage: setImage});
-                console.log('Image uploaded successfully:', response.data);
-            } catch (error) {
-                navigation.navigate('PhotoConfirmation');
-                console.error('Error uploading image:', error.response.data);
-            }
-    };
+        navigation.navigate('PhotoConfirmation', {image: jpegUri, setImage: setImage});
+    }
 
     if (hasCameraAccess === false) {
         return <Text className="text-3xl text-[#999]">No access to camera</Text>;

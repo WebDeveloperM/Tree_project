@@ -49,7 +49,7 @@ export default function MyWork() {
                                     <Image className='w-12 h-14' source={require('../assets/location-green.png')}/>
                                 </View>
                                 <View className=''>
-                                    <Text className='text-[17px] text-[#0AC16D] font-semibold w-[80%]'>{item.address}</Text>
+                                    <Text className='text-[17px] text-[#0AC16D] font-semibold w-[70%]'>{item.address.substring(0,20)}...</Text>
                                     <View className='flex-row items-center mt-2'>
                                         <Text className='text-[17px] mr-2'>{item.count} piece</Text>
                                         <View

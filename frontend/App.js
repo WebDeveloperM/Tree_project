@@ -18,6 +18,7 @@ import CompleteJob from "./screens/CompleteJob";
 import CompleteJobPhotos from "./screens/CompleteJobPhotos";
 import PhotoConfirmation from "./screens/PhotoConfirmation";
 import CommonMap from "./screens/CommonMap";
+import CommonMapImages from "./screens/CommonMapImages";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,26 +26,27 @@ export default function App() {
     const hideHeader = {headerShown: false}
 
     return (
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen name="Navigation" component={Navigation} options={hideHeader}/>
-                    <Stack.Screen name="Discover" component={Discover} options={hideHeader}/>
-                    <Stack.Screen name="Information" component={Information} options={hideHeader}/>
-                    <Stack.Screen name="Authentication" component={Authentication} options={hideHeader}/>
-                    <Stack.Screen name="VerificationCode" component={VerificationCode} options={hideHeader}/>
-                    <Stack.Screen name="Home" component={Home} options={hideHeader}/>
-                    <Stack.Screen name="Jobs" component={Jobs} options={hideHeader}/>
-                    <Stack.Screen name="MyWork" component={MyWork} options={hideHeader}/>
-                    <Stack.Screen name="Order" component={Order} options={hideHeader}/>
-                    <Stack.Screen name="AddCard" component={AddCard} options={hideHeader}/>
-                    <Stack.Screen name="Payment" component={Payment} options={hideHeader}/>
-                    <Stack.Screen name="ServiceMap" component={ServiceMap} options={hideHeader}/>
-                    <Stack.Screen name="ServiceCamera" component={ServiceCamera} options={hideHeader}/>
-                    <Stack.Screen name="CompleteJob" component={CompleteJob} options={hideHeader}/>
-                    <Stack.Screen name="CompleteJobPhotos" component={CompleteJobPhotos} options={hideHeader}/>
-                    <Stack.Screen name="PhotoConfirmation" component={PhotoConfirmation} options={hideHeader}/>
-                    <Stack.Screen name="CommonMap" component={CommonMap} options={hideHeader}/>
-                </Stack.Navigator>
-            </NavigationContainer>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Navigation" component={Navigation} options={hideHeader}/>
+                <Stack.Screen name="Discover" component={Discover} options={hideHeader}/>
+                <Stack.Screen name="Information" component={Information} options={hideHeader}/>
+                <Stack.Screen name="Authentication" component={Authentication} options={hideHeader}/>
+                <Stack.Screen name="VerificationCode" component={VerificationCode} options={hideHeader}/>
+                <Stack.Screen name="Home" component={Home} options={hideHeader}/>
+                <Stack.Screen name="Jobs" component={Jobs} options={hideHeader}/>
+                <Stack.Screen name="MyWork" component={MyWork} options={hideHeader}/>
+                <Stack.Screen name="Order" component={Order} options={hideHeader}/>
+                <Stack.Screen name="AddCard" component={AddCard} options={hideHeader}/>
+                <Stack.Screen name="Payment" component={Payment} options={hideHeader}/>
+                <Stack.Screen name="ServiceMap" component={ServiceMap} options={hideHeader}/>
+                <Stack.Screen name="ServiceCamera" component={ServiceCamera} options={hideHeader}/>
+                <Stack.Screen name="CompleteJob" component={CompleteJob} options={hideHeader}/>
+                <Stack.Screen name="CompleteJobPhotos" component={CompleteJobPhotos} options={hideHeader}/>
+                <Stack.Screen name="PhotoConfirmation" component={PhotoConfirmation} options={hideHeader}/>
+                <Stack.Screen name="CommonMap" component={CommonMap} options={hideHeader}/>
+                <Stack.Screen name="CommonMapImages" component={CommonMapImages} options={hideHeader}/>
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
