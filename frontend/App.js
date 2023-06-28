@@ -19,6 +19,7 @@ import CompleteJobPhotos from "./screens/CompleteJobPhotos";
 import PhotoConfirmation from "./screens/PhotoConfirmation";
 import CommonMap from "./screens/CommonMap";
 import CommonMapImages from "./screens/CommonMapImages";
+import OrderOther from "./screens/OrderOther";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export default function App() {
                 <Stack.Screen name="PhotoConfirmation" component={PhotoConfirmation} options={hideHeader}/>
                 <Stack.Screen name="CommonMap" component={CommonMap} options={hideHeader}/>
                 <Stack.Screen name="CommonMapImages" component={CommonMapImages} options={hideHeader}/>
+                <Stack.Screen name="OrderOther" component={OrderOther} options={hideHeader}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
