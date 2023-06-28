@@ -17,6 +17,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=15, unique=True)
     type = models.CharField(max_length=50, choices=TYPES, default=FARMER)
     region = models.CharField(max_length=250)
+    dispatch_id = models.TextField(null=True, blank=True)
 
     class Meta(AbstractUser.Meta):
         db_table = 'users_user'
@@ -28,7 +29,7 @@ class User(AbstractUser):
 class SmsCode(BaseModel):
     dispatch_id = models.CharField(max_length=8)
     code = models.CharField(max_length=4)
-    user = models.ForeignKey('users.User', on_delete=CASCADE, related_name='sms_codes')
+    # user = models.ForeignKey('users.User', on_delete=CASCADE, related_name='sms_codes')
 
     def __str__(self):
         return self.code

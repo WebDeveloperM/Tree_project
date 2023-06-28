@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import os
 import sys
@@ -138,7 +137,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'files/static')
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'files/uploads')
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = (
@@ -146,7 +144,9 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000'
 )
 
-SMS_CODE_ACTIVE = False
+SMS_CODE_ACTIVE = True
+
+ESKIZ_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjQzMTgsInJvbGUiOm51bGwsImRhdGEiOnsiaWQiOjQzMTgsIm5hbWUiOiJTaGFib25vdiBNYSdydWYgQmFocmlkZGluIG8nZydsaSIsImVtYWlsIjoid2ViZGV2bWFydWYxNTE0QGdtYWlsLmNvbSIsInJvbGUiOm51bGwsImFwaV90b2tlbiI6bnVsbCwic3RhdHVzIjoiYWN0aXZlIiwic21zX2FwaV9sb2dpbiI6ImVza2l6MiIsInNtc19hcGlfcGFzc3dvcmQiOiJlJCRrIXoiLCJ1el9wcmljZSI6NTAsInVjZWxsX3ByaWNlIjoxMTUsInRlc3RfdWNlbGxfcHJpY2UiOm51bGwsImJhbGFuY2UiOjUwMDAsImlzX3ZpcCI6MCwiaG9zdCI6InNlcnZlcjEiLCJjcmVhdGVkX2F0IjoiMjAyMy0wNi0yNVQwODoxNTo1MS4wMDAwMDBaIiwidXBkYXRlZF9hdCI6IjIwMjMtMDYtMjdUMTc6Mzc6NDIuMDAwMDAwWiIsIndoaXRlbGlzdCI6bnVsbCwiaGFzX3BlcmZlY3R1bSI6MH0sImlhdCI6MTY4Nzg4ODAyMywiZXhwIjoxNjkwNDgwMDIzfQ.xl1OHLbwcT4fDa5oJ2SACVt-h9ZkvGvL5d56W3zwBQU"
 try:
     from .settings_dev import *
 except ImportError:

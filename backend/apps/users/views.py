@@ -7,7 +7,7 @@ from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
 
 from django.conf import settings
-# from users.utils.send_code import send_code
+from users.utils.send_code import send_code
 import datetime
 
 
@@ -32,24 +32,16 @@ class RegisterView(APIView):
         phone = request.data.get('phone')
         type = request.data.get('type')
         region = request.data.get('region')
-
-        if settings.SMS_CODE_ACTIVE:
-            # res = send_code(request.data['phone'])
-            res = {"msg": "ok"}
-            return Response(res, 201)
         user = User.objects.filter(phone=phone).first()
         if user:
-            return Response(UserSerializer(user).data, 203)
-        User.objects.update_or_create(phone=phone, email=phone, username=phone, type=type, region=region)
-        fake_data = {
-            "message_status": {
-                "status": "success",
-                "message": "Waiting for SMS provider"
-            },
-            "dispatch_id": 12345678,
-            "phone": phone
-        }
-        return Response(fake_data, 201)
+            res = send_code(request.data['phone'])
+            user.dispatch_id = res['dispatch_id']
+            user.save()
+            return Response(UserSerializer(user).data, 201)
+        res = send_code(request.data['phone'])
+        user = User.objects.create(phone=phone, email=phone, username=phone, type=type, region=region,
+                                             dispatch_id=res['dispatch_id'])
+        return Response(UserSerializer(user).data, 201)
 
 
 class LoginView(APIView):

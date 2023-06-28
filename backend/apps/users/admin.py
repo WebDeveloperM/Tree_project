@@ -11,18 +11,17 @@ from main.admin import AuthorMixin
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('region', 'phone')
-    fields = ('phone', 'type', 'region')
+    fields = ('phone', 'type', 'region', 'dispatch_id')
 
 
 @admin.register(SmsCode)
 class SmscodeAdmin(AuthorMixin, admin.ModelAdmin):
-    list_display = ('dispatch_id', 'code', 'user')
-    fields = ('dispatch_id', 'code', 'user')
+    list_display = ('dispatch_id', 'code')
+    fields = ('dispatch_id', 'code')
 
     def has_add_permission(self, request, obj=None):
-        if settings.SMS_CODE_ACTIVE:
-            return False
-        return True
+        return False
+
 
     def has_change_permission(self, request, obj=None):
         return False
