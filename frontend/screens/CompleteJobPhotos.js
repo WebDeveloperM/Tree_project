@@ -33,12 +33,14 @@ export default function CompleteJobPhotos() {
                     order_id: id
                 }, {headers})
             ;
+            console.log(response.data)
             setOrdersData(response.data);
         } catch (error) {
             console.log(error.response.data, 'errorr');
         }
     };
 
+    let a = ordersData?.plants.map(item => console.log(item.image))
 
     return (
         <SafeAreaView className="flex-1 bg-white">
@@ -49,9 +51,9 @@ export default function CompleteJobPhotos() {
                         {ordersData && ordersData.plants.map(item => (
                             <Pressable
                                 key={item.id}
-                                onPress={() => navigation.navigate('ServiceCamera')}
+                                onPress={() => navigation.navigate('ServiceCamera', {plantId: item.id, orderId: id})}
                                 className='w-[48%] h-36 border border-[#1B772E] rounded-2xl items-center justify-center mb-4'>
-                                {item.image ? <Image source={item.image}/> :
+                                {item.image ? <Image source={{uri: `http://127.0.0.1:8000${item.image}`}}/> :
                                     <Image source={require('../assets/camera-icon-2.png')}/>}
 
                             </Pressable>

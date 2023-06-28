@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {Camera} from 'expo-camera';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,6 +12,9 @@ export default function ServiceCamera() {
     const navigation = useNavigation();
     const [image, setImage] = useState(null);
     const cameraRef = useRef(null);
+    const route = useRoute()
+    const {orderId, plantId} = route.params
+
 
     const takePicture = async () => {
         if (cameraRef.current) {
@@ -54,7 +57,12 @@ export default function ServiceCamera() {
 
     const uploadImage = async (uri) => {
         const jpegUri = await convertToJPEG(uri);
-        navigation.navigate('PhotoConfirmation', {image: jpegUri, setImage: setImage});
+        navigation.navigate('PhotoConfirmation', {
+            image: jpegUri,
+            setImage: setImage,
+            plantId: plantId,
+            orderId: orderId
+        });
     }
 
     if (hasCameraAccess === false) {
