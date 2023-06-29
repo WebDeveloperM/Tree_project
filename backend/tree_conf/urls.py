@@ -26,4 +26,7 @@ urlpatterns = [
         path('finance/', include(('finance.urls', 'apps.finance'), namespace='finance')),
         path('main/', include(('main.urls', 'apps.main'), namespace='main'))
     ])),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
