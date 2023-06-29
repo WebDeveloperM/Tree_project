@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {View, Dimensions, Text, Image, Pressable, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation, useRoute} from "@react-navigation/native";
-import {GET_JOBS, LAST_ORDERS, ORDER_CHANGE} from "./utils/urls";
+import {useNavigation} from "@react-navigation/native";
+import {LAST_ORDERS} from "./utils/urls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
@@ -37,16 +37,28 @@ export default function CommonMap() {
             console.error(error, "error")
         }
     }
-
     return (
         <View className='flex-1'>
             <View
                 className='absolute z-10 top-0 left-0 w-full rounded-b-2xl bg-[#31B44C]
-                border border-gray-400 flex-row p-4 pt-14 items-center '>
-                <Pressable onPress={() => navigation.goBack()}>
-                    <Image className='w-4 h-8' source={require('../assets/arrow-left-white.png')}/>
+                border border-gray-400 flex-row p-4 pt-14 h-32 items-center '>
+                <View className='w-full h-16 bg-white rounded-2xl -mb-20 p-3'>
+                    <View className='flex-row w-full h-full bg-[#E6F6E9] rounded-xl items-center'>
+                        <Image className='mx-3' source={require('../assets/location-grey.png')}/>
+                        <Text className='text-[#31B44C] font-semibold text-[15px]'>
+                            {locations && locations[0].address.split(', ')[1]},
+                            {locations && ' ' + locations[0].address.split(', ')[2]}
+                        </Text>
+                    </View>
+                </View>
+            </View>
+            <View className='absolute z-10 bottom-16 left-6'>
+                <Pressable
+                    onPress={() => navigation.goBack()}
+                    className='items-center justify-center w-14 h-14 bg-[#31B44C] rounded-2xl'
+                >
+                    <Image className='w-4 h-8 mr-1' source={require('../assets/arrow-left-white.png')}/>
                 </Pressable>
-                <Text className='text-white text-[56px] font-semibold ml-4' onPress={() => navigation.navigate('CommonMapImages', {location: locations[0]})}>3+1</Text>
             </View>
             <MapView
                 className='w-full h-full'
@@ -56,6 +68,7 @@ export default function CommonMap() {
             >
                 {locations && locations.map(location => (
                     <Marker
+                        onPress={() => navigation.navigate('CommonMapImages', {location})}
                         key={location.id}
                         coordinate={{
                             latitude: location.location.split(',')[0],
@@ -64,7 +77,6 @@ export default function CommonMap() {
                         className='items-center justify-center z-0'
                     >
                         <TouchableOpacity
-                            // onPress={(e) => navigation.navigate('CommonMapImages')}
                             className='p-1 bg-gray-300 rounded-2xl mb-2 relative' style={styles.shadow}>
                             <View className='absolute z-10 right-0 py-1 px-2 bg-[#31B44C] rounded'>
                                 <Text className='text-white font-bold test-[20px]'>{location.plants.length}</Text>
@@ -91,6 +103,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.21,
         shadowRadius: 8.19,
-        elevation: 11
+        elevation: 11,
+        zIndex: 999
     }
 })

@@ -12,7 +12,6 @@ export default function Order() {
     const getCard = async (id) => {
         try {
             const token = await AsyncStorage.getItem('token')
-            console.log(token)
             const headers = {
                 Authorization: `Token ${token}`,
                 'Content-Type': 'application/json',
@@ -38,10 +37,10 @@ export default function Order() {
                         showsHorizontalScrollIndicator={false}>
                 <View className="w-full h-full items-center">
                     <View
-                        className='w-36 h-36 mt-8 border border-[#1B772E] items-center justify-center rounded-full bg-[#D6F0DB]'>
+                        className='w-36 h-36 mt-4 border border-[#1B772E] items-center justify-center rounded-full bg-[#D6F0DB]'>
                         <Image className='w-24 h-24' source={require('../assets/tree.png')}/>
                     </View>
-                    <Text className='text-[30px] text-[#0AC16D] font-bold mb-10'>Lorem Ipsum</Text>
+                    <Text className='text-[20px] w-[70%] text-center text-[#0AC16D] font-bold mt-4 mb-6'>Choose the amount of trees you want to support</Text>
                     <View className='items-center w-full'>
                         <Pressable onPress={() => getCard(1)} className='w-[80%]'>
                             <View
@@ -79,7 +78,7 @@ export default function Order() {
                                 </View>
                             </View>
                         </Pressable>
-                        <Pressable className='w-[80%]'>
+                        <Pressable className='w-[80%]' onPress={()=> navigation.navigate('OrderOther')}>
                             <View
                                 className='mb-4 h-24 flex-row items-center bg-[#D6F0DB]/30 p-2 border border-[#1B772E] rounded-2xl'>
                                 <View

@@ -1,15 +1,17 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import * as FileSystem from "expo-file-system";
+import {ORDER_DONE} from "./utils/urls";
 
 
 export default function PhotoConfirmation() {
     const navigation = useNavigation()
     const route = useRoute()
-    const {image, setImage} = route.params
+    const {image, setImage, orderId, plantId} = route.params
+    console.log(orderId, 'orderId')
+    console.log(plantId, 'PlantId')
 
     const backToCamera = () => {
         setImage('')
@@ -17,7 +19,7 @@ export default function PhotoConfirmation() {
     }
 
     const uploadImage = async () => {
-        const apiUrl = 'http://127.0.0.1:8000/api/v1/main/orders-done/';
+        const apiUrl = ORDER_DONE;
         const token = await AsyncStorage.getItem('token');
         const headers = {
             Authorization: `Token ${token}`,
@@ -25,8 +27,8 @@ export default function PhotoConfirmation() {
         };
         try {
             const formData = new FormData();
-            formData.append('order_id', '7');
-            formData.append('plant_id', '111');
+            formData.append('order_id', orderId);
+            formData.append('plant_id', plantId);
             formData.append('image', {
                 uri: image,
                 name: 'image.jpg',

@@ -17,7 +17,7 @@ export default function InvestorFooter() {
             <Pressable onPress={()=>navigation.navigate('Order')}>
                 <Image className='w-10 h-10' source={require('../assets/add-icon.png')} />
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('CommonMap')}>
                 <Image className='w-8 h-10' source={require('../assets/location-green.png')} />
             </Pressable>
             <Pressable>

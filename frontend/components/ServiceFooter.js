@@ -18,7 +18,7 @@ export default function ServiceFooter() {
             <Pressable onPress={() => navigation.navigate('MyWork')}>
                 <Image className='w-18 h-18 mb-6' source={require('../assets/camera-icon.png')}/>
             </Pressable>
-            <Pressable>
+            <Pressable onPress={() => navigation.navigate('CommonMap')}>
                 <Image className='w-8 h-10' source={require('../assets/location-green.png')}/>
             </Pressable>
             <Pressable>
