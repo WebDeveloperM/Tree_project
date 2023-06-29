@@ -3,6 +3,7 @@ import {Image, Pressable, Text, View} from 'react-native';
 import {useNavigation, useRoute} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import {ORDER_DONE} from "./utils/urls";
 
 
 export default function PhotoConfirmation() {
@@ -18,7 +19,7 @@ export default function PhotoConfirmation() {
     }
 
     const uploadImage = async () => {
-        const apiUrl = 'http://127.0.0.1:8000/api/v1/main/orders-done/';
+        const apiUrl = ORDER_DONE;
         const token = await AsyncStorage.getItem('token');
         const headers = {
             Authorization: `Token ${token}`,

@@ -2,8 +2,6 @@ import React, {useRef, useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {Camera} from 'expo-camera';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
