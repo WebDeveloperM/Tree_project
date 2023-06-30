@@ -15351,10 +15351,14 @@ html.rd-navbar-fixed-linked .page-header {
 
 .swiper-slider-classic h1 {
 	letter-spacing: .02em;
+	color: white;
+	text-shadow: 1px 1px 10px black;
 }
 
 .swiper-slider-classic * + p {
 	margin-top: 14px;
+	color: white;
+	text-shadow: 1px 1px 10px black;
 }
 
 .swiper-slider-classic * + .button {
