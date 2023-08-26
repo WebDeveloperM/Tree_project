@@ -1,9 +1,11 @@
 import {Platform} from "react-native";
 
-const domain = "https://api.tree1.co" && Platform.select({
-    android: 'http://10.0.2.2:8000',
-    ios: 'http://127.0.0.1:8000'
-})
+const domain = 'http://127.0.0.1:8000'
+// "https://api.tree1.co"
+// && Platform.select({
+//     android: 'http://10.0.2.2:8000',
+//     ios: 'http://127.0.0.1:8000'
+// })
 
 export const REGISTER = `${domain}/api/v1/users/register/`
 export const LOGIN = `${domain}/api/v1/users/login/`
